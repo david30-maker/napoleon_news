@@ -5,6 +5,8 @@ class Article < ApplicationRecord
   belongs to :approved_by, class_name: "User", foreign_key: "approved_by_id"
   has_many :article_tags, dependent: :destroy
   has_many :tags, through: :article_tags
+  has_many :article_categories, dependent: :destroy
+  has_many :categories, through: :article_categories
 
   validates :title, presence: true
   validates :body, presence: true
