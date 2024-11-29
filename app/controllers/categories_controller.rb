@@ -10,7 +10,7 @@ class CategoriesController < ApplicationController
         end
     end
 
-        def article
+        def articles
             @articles = @category.articles.includes(:author)
             respond_to do |format|
                 format.html
