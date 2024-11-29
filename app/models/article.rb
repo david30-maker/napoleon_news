@@ -2,7 +2,6 @@ class Article < ApplicationRecord
   # has_rich_text :body
 
   belongs_to :author, class_name: "User", foreign_key: "ser_id"
-  belongs to :approved_by, class_name: "User", foreign_key: "approved_by_id"
   has_many :article_tags, dependent: :destroy
   has_many :tags, through: :article_tags
   has_many :article_categories, dependent: :destroy
@@ -12,7 +11,7 @@ class Article < ApplicationRecord
   validates :body, presence: true
   validates :status, inclusion: { in: %w[draft under_review approved/scheduled published] }
 
-  enum status: { draft: 0, under_review: 1, "approved/scheduled": 2, published: 3 }
+  enum :status, { draft: 0, under_review: 1, "approved/scheduled": 2, published: 3 }
 
   scope :published, -> { where(status: "published") }
   scope :approved, -> { where(status: "approved/scheduled") }

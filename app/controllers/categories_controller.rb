@@ -2,7 +2,7 @@ class CategoriesController < ApplicationController
     before_action :set_category, only: [:article]
 
     def index
-        @categories = Category.includes(:creator).order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+        @categories = Category.includes(:creator).order(created_at: :desc).page(params[:page]).per(10)
 
         respond_to do |format|
             format.html

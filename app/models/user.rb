@@ -8,5 +8,5 @@ class User < ApplicationRecord
          has_many :role, through: :user_roles
          has_many :articles
 
-         validates :first_name, :last_name, :email, presence: true
+         validates :email, presence: true
 end
