@@ -1,39 +1,90 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
-
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-5 py-3">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">Napoleon News</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown" data-turbo-permanent>
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Features
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Interviews</a></li>
+            <li><a class="dropdown-item" href="#">Stories</a></li>
+            <li><a class="dropdown-item" href="#">CSR</a></li>
+            <%# <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li> %>
+          </ul>
         </li>
         <li class="nav-item dropdown" data-turbo-permanent>
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
+            Leadership
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Transformational Leaders</a></li>
+            <li><a class="dropdown-item" href="#">Governance</a></li>
+            <li><a class="dropdown-item" href="#">Legal</a></li>
+            <%# <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li> %>
+          </ul>
+        </li>
+        <li class="nav-item dropdown" data-turbo-permanent>
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Business
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Finance</a></li>
+            <li><a class="dropdown-item" href="#">SMEs</a></li>
+            <li><a class="dropdown-item" href="#">Innovation</a></li>
+            <li><a class="dropdown-item" href="#">Listings</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown" data-turbo-permanent>
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Society
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Men</a></li>
+            <li><a class="dropdown-item" href="#">Youth</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><a class="dropdown-item" href="#">MBGN Contest</a></li>
+            <li><a class="dropdown-item" href="#">Instant Quiz</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown" data-turbo-permanent>
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            News
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Trending</a></li>
+            <li><a class="dropdown-item" href="#">Entertainment</a></li>
+            <li><a class="dropdown-item" href="#">Tech</a></li>
+            <li><a class="dropdown-item" href="#">Sports</a></li>
+            <li><a class="dropdown-item" href="#">Culture</a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          <a class="nav-link active" aria-current="page" href="#">Events</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Contact Us</a>
         </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      <div class="d-flex me-2">
+        <a href="#" class="btn btn-outline-secondary btn-sm me-2">
+          <i class="fas fa-sign-in-alt me-1"></i> Login
+        </a>
+        <a href="#" class="btn btn-outline-secondary btn-sm me-2"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="btn btn-outline-secondary btn-sm me-2"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="btn btn-outline-secondary btn-sm"><i class="fab fa-instagram"></i></a>
+      </div>
+      <%# <form class="d-flex" role="search">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form> %>
     </div>
   </div>
 </nav>
+
