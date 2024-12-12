@@ -1,7 +1,8 @@
 class Article < ApplicationRecord
   has_rich_text :body
 
-  belongs_to :author, class_name: "User", foreign_key: "user_id"
+  belongs_to :author, class_name: "User", foreign_key: "author_id"
+  belongs_to :approved_by, class_name: "User", foreign_key: 'approved_by_id', optional: true
   has_many :article_tags, dependent: :destroy
   has_many :tags, through: :article_tags
   has_many :article_categories, dependent: :destroy

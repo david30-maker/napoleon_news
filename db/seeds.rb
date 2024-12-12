@@ -7,3 +7,12 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+# Create Categories
+categories = [
+  { title: 'Features', children: %w[Interview Stories CSR] },
+  { title: 'Leadership' children: %w[Transformational Leaders Governance Legal] },
+  { title: 'Business' children: %w[Finance SMEs Innovation Listings] },
+  { title: 'Society' children: %w[Men Youth]},
+  { title: 'News' children: %w[Trending Entertainment Tech Sports Culture]},
+]

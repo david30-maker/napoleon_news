@@ -16,7 +16,30 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def new
+    @article = Article.new
+    respond_to do |format|
+      format.html { render :new, status: :unprocessable_entity }
+    end
+  end
+
   def show
+
+#     article = Article.find(1)
+
+# # Get the rich text content
+# rich_text_body = article.body
+
+# # Access the attached images
+# images = rich_text_body.embeds.select { |embed| embed.is_a?(ActiveStorage::Blob) && embed.image? }
+
+# # Process each image
+# images.each do |image|
+#   puts image.filename.to_s # The filename
+#   puts image.byte_size     # File size
+#   puts url_for(image)      # URL for the image
+# end
+
     respond_to do |format|
       format.html
       format.json { render json: @article }
@@ -24,7 +47,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = current_user.articles.build(article_params)
+    @article = current_user.authored_articles.build(article_params)
 
     if @article.save
       respond_to do |format|
