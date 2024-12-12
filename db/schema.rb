@@ -72,14 +72,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_12_131437) do
 
   create_table "articles", force: :cascade do |t|
     t.string "title"
+    t.string "description", limit: 500
     t.datetime "published_at"
     t.datetime "approved_at"
-    t.integer "approved_by"
     t.integer "status"
-    t.bigint "user_id", null: false
+    t.bigint "approved_by_id"
+    t.bigint "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_articles_on_user_id"
+    t.index ["approved_by_id"], name: "index_articles_on_approved_by_id"
+    t.index ["author_id"], name: "index_articles_on_author_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -130,7 +132,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_12_131437) do
   add_foreign_key "article_categories", "categories"
   add_foreign_key "article_tags", "articles"
   add_foreign_key "article_tags", "tags"
-  add_foreign_key "articles", "users"
+  add_foreign_key "articles", "users", column: "approved_by_id"
+  add_foreign_key "articles", "users", column: "author_id"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
 end

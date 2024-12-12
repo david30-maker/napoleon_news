@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :categories, only: [:index] do
+  resources :categories, only: [:index, :show] do
     member do
       get :articles
     end

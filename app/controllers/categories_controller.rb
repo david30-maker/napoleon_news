@@ -1,26 +1,30 @@
 class CategoriesController < ApplicationController
-    before_action :set_category, only: [:article]
+  before_action :set_category, only: [:articles]
 
-    def index
-        @categories = Category.includes(:creator).order(created_at: :desc).page(params[:page]).per(10)
+  def index
+      @categories = Category.includes(:creator).order(created_at: :desc).page(params[:page]).per(10)
 
-        respond_to do |format|
-            format.html
-            format.json { render json: @categories }
-        end
-    end
+      respond_to do |format|
+          format.html
+          format.json { render json: @categories }
+      end
+  end
 
-        def articles
-            @articles = @category.articles.includes(:author)
-            respond_to do |format|
-                format.html
-                format.json { render json: @articles }
-            end
-        end
+  def show
 
-    private
+  end
 
-    def set_category
-        @category = Category.find(params[:id])
-    end
+      def articles
+          @articles = @category.articles.includes(:author)
+          respond_to do |format|
+              format.html
+              format.json { render json: @articles }
+          end
+      end
+
+  private
+
+  def set_category
+      @category = Category.find(params[:id])
+  end
 end

@@ -1,5 +1,5 @@
 class Article < ApplicationRecord
-   has_rich_text :body
+  has_rich_text :body
 
   belongs_to :author, class_name: "User", foreign_key: "user_id"
   has_many :article_tags, dependent: :destroy
