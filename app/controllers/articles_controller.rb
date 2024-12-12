@@ -7,7 +7,12 @@ class ArticlesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: { articles: @articles, meta: { total_pages: @articles.total_pages, total_count: @articles.total_count } } }
+      format.json do
+        render json: { 
+          articles: @articles, 
+          meta: { total_pages: @articles.total_pages, total_count: @articles.total_count }
+        }
+      end
     end
   end
 
@@ -19,8 +24,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.new(article_params)
-    @article.author = current_user
+    @article = current_user.articles.build(article_params)
 
     if @article.save
       respond_to do |format|
@@ -54,7 +58,7 @@ class ArticlesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to articles_url, notice: "Article was successfully destroyed." }
-      format.json { head :no_content, status: :no_content }
+      format.json { head :no_content }
     end
   end
 
@@ -62,9 +66,14 @@ class ArticlesController < ApplicationController
 
   def set_article
     @article = Article.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    respond_to do |format|
+      format.html { redirect_to articles_url, alert: "Article not found." }
+      format.json { render json: { error: "Article not found" }, status: :not_found }
+    end
   end
 
   def article_params
-    params.require(:article).permit(:title, :body, :status, :published_at, :approved_at, :user_id)
+    params.require(:article).permit(:title, :body, :status, :published_at, :approved_at)
   end
 end
