@@ -4,7 +4,6 @@ import "controllers"
 import "bootstrap"
 import "@popperjs/core";
 
-
 require("trix")
 require("@rails/actiontext")
 
