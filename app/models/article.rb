@@ -19,6 +19,9 @@ class Article < ApplicationRecord
   scope :under_review, -> { where(status: "under_review") }
   scope :draft, -> { where(status: "draft") }
 
+  attr_accessor :tag_list
+  after_save :assign_tags
+
   def self.search(search)
     if search
       where("title LIKE ?", "%#{search}%")
@@ -27,17 +30,24 @@ class Article < ApplicationRecord
     end
   end
 
-  def self.tagged_with(name)
-    Tag.find_by!(name: name).articles
-  end
+  # def self.tagged_with(name)
+  #   Tag.find_by!(name: name).articles
+  # end
 
-  def tag_list
-    tags.map(&:name).join(", ")
-  end
+  # def tag_list
+  #   tags.map(&:name).join(", ")
+  # end
 
-  def tag_list=(names)
-    self.tags = names.split(",").map do |name|
-      Tag.where(name: name.strip).first_or_create!
-    end
+  # def tag_list=(names)
+  #   self.tags = names.split(",").map do |name|
+  #     Tag.where(name: name.strip).first_or_create!
+  #   end
+  # end
+
+  def assign_tags
+    return unless tag_list
+
+    tag_names = tag_list.split(',').map(&:strip).uniq
+    self.tags = tag_names.map { |name| Tag.find_or_create_by(name: name) }
   end
 end
