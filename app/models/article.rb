@@ -50,4 +50,14 @@ class Article < ApplicationRecord
     tag_names = tag_list.split(',').map(&:strip).uniq
     self.tags = tag_names.map { |name| Tag.find_or_create_by(name: name) }
   end
+
+  def image
+    article_image = body.embeds.select { |embed| embed.image? }.first
+  end
+
+  def body_without_images
+    doc = Nokogiri::HTML::DocumentFragment.parse(self.body.to_s)
+    doc.css("figure, attachment").each(&:remove)
+    doc.to_html.html_safe
+  end
 end

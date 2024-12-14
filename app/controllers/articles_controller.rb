@@ -1,5 +1,7 @@
+require 'nokogiri'
+
 class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :update, :destroy]
+  before_action :set_article, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:create, :update, :destroy]
 
   def index
@@ -19,26 +21,21 @@ class ArticlesController < ApplicationController
   def new
     @article = Article.new
     respond_to do |format|
-      format.html { render :new, status: :unprocessable_entity }
+      format.html { render :new, status: :ok }
+    end
+  end
+
+  def edit
+    respond_to do |format|
+      format.html { render :edit, status: :ok }
     end
   end
 
   def show
-
-#     article = Article.find(1)
-
-# # Get the rich text content
-# rich_text_body = article.body
-
-# # Access the attached images
-# images = rich_text_body.embeds.select { |embed| embed.is_a?(ActiveStorage::Blob) && embed.image? }
-
-# # Process each image
-# images.each do |image|
-#   puts image.filename.to_s # The filename
-#   puts image.byte_size     # File size
-#   puts url_for(image)      # URL for the image
-# end
+    article_image = @article.image
+    @article_image_url = article_image.present? ? url_for(article_image) : nil
+    @article_body = @article_image_url.present? ? @article.body_without_images : @article.body
+    @tag_classes = %w[bg-primary bg-secondary bg-success]
 
     respond_to do |format|
       format.html
@@ -99,4 +96,14 @@ class ArticlesController < ApplicationController
   def article_params
     params.require(:article).permit(:title, :body, :status, :published_at, :approved_at, :tag_list)
   end
+
+  # def body_without_images(article)
+  #   # document = Nokogiri::HTML(article.body.to_s)
+  #   # document.search('img').remove
+  #   # document.to_html.html_safe
+
+  #   doc = Nokogiri::HTML::DocumentFragment.parse(article.body.to_s)
+  #   doc.css("figure, attachment").each(&:remove)
+  #   doc.to_html.html_safe
+  # end
 end
