@@ -60,4 +60,8 @@ class Article < ApplicationRecord
     doc.css("figure, attachment").each(&:remove)
     doc.to_html.html_safe
   end
+
+  def formatted_created_at
+    "#{created_at.day.ordinalize} #{created_at.strftime('%b, %Y')}"
+  end
 end
