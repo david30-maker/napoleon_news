@@ -94,16 +94,6 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:title, :body, :status, :published_at, :approved_at, :tag_list)
+    params.require(:article).permit(:title, :body, :description, :status, :published_at, :approved_at, :tag_list, category_ids: [])
   end
-
-  # def body_without_images(article)
-  #   # document = Nokogiri::HTML(article.body.to_s)
-  #   # document.search('img').remove
-  #   # document.to_html.html_safe
-
-  #   doc = Nokogiri::HTML::DocumentFragment.parse(article.body.to_s)
-  #   doc.css("figure, attachment").each(&:remove)
-  #   doc.to_html.html_safe
-  # end
 end

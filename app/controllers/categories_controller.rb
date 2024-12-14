@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  before_action :set_category, only: [:articles]
+  before_action :set_category, only: [:articles, :show]
 
   def index
       @categories = Category.includes(:creator).order(created_at: :desc).page(params[:page]).per(10)
@@ -11,7 +11,13 @@ class CategoriesController < ApplicationController
   end
 
   def show
+    @top_articles = @category.articles.order(created_at: :desc).limit(7)
+    @other_articles = @category.articles.order(created_at: :desc)[7..-1]
 
+    respond_to do |format|
+        format.html
+        format.json { render json: { top_articles: @top_articles, other_articles: @other_articles } }
+    end
   end
 
       def articles

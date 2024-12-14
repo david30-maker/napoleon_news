@@ -6,7 +6,7 @@
         <div class="col-12">
           <h2><%= @article.title %></h2>
           <p class="text-muted">
-            By <span class="fw-bold">@article.author.email</span> • Published on <span><%= @article.published_at  %></span>
+            By <span class="fw-bold"><%= @article.author.first_name+ ' ' +@article.author.last_name  %></span> • Published on <span><%= @article.formatted_created_at  %></span>
           </p>
         </div>
       </div>
@@ -23,6 +23,9 @@
             <span class="badge <%= @tag_classes[idx] %>" ><%= tag.name.capitalize  %></span>
           <% end %>
         </div>
+      </div>
+      <div class="row border-bottom">
+        <p class="fst-italic fw-semibold"><%= @article.description %></p>
       </div>
       <!-- Article Body -->
       <div class="row">
