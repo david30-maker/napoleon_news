@@ -49,7 +49,7 @@
         <% if @top_articles[1..2].present? %>
           <% @top_articles[1..2].each do |article| %>
             <div class="card border-0">
-              <a href="#"><img src="<%= url_for(article.image) %>" class="card-img-top" alt="..."></a>
+              <a href="<%= article_path(article)%>"><img src="<%= url_for(article.image) %>" class="card-img-top" alt="..."></a>
               <div class="card-body py-1 px-0">
                 <a href="<%= article_path(article)%>" class="text-dark link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
                   <h6 class="card-title"><%= article.title %></h6>
