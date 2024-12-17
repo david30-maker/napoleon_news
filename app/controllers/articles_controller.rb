@@ -17,6 +17,7 @@ class ArticlesController < ApplicationController
   end
 
   def show
+    @article = Article.friendly.find(params[:id])
     respond_to do |format|
       format.html
       format.json { render json: @article }

@@ -2,12 +2,11 @@ class ArticleTag < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 
-
   belongs_to :article
   belongs_to :tag
 
   private
-  
+
   def slug_candidates
     [
       :tag_name,
