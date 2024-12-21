@@ -20,7 +20,7 @@ class ArticlesController < ApplicationController
 
   def index
     @articles_under_review = Article.under_review.order(created_at: :desc).page(params[:page]).per(20)
-    @published_articles = Article.plublished.order(created_at: :desc).page(params[:page]).per(20)
+    @published_articles = Article.published.order(created_at: :desc).page(params[:page]).per(20)
   end
 
   def new
@@ -82,7 +82,7 @@ class ArticlesController < ApplicationController
     @article.destroy
 
     respond_to do |format|
-      format.html { redirect_to articles_url, notice: "Article was successfully destroyed." }
+      format.html { redirect_to request.referer || root_path, notice: "Article was deleted successfully." }
       format.json { head :no_content }
     end
   end
