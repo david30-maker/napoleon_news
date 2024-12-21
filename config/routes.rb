@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index] do
     resources :authored_articles, only: :index
+    resources :admin, only: :index
     member do
       patch :update_role
     end
