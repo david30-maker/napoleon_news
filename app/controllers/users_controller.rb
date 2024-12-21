@@ -15,4 +15,11 @@ class UsersController < ApplicationController
       redirect_to users_path, alert: "Failed to update role for #{user.first_name}."
     end
   end
+
+  def authored_articles
+    head :unauthorized unless current_user&.admin? || current_user == author
+
+    @author = User.find(params[:author_id])
+    @articles = @author.authored_articles.order(created_at: :desc).page(params[:page]).per(50)
+  end
 end

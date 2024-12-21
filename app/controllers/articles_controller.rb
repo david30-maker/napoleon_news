@@ -1,21 +1,26 @@
 require 'nokogiri'
 
 class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :edit, :update, :destroy]
+  before_action :set_article, only: [:show, :edit, :update, :destroy, :update_status]
   before_action :authenticate_user!, only: [:create, :update, :destroy]
 
-  def index
-    @articles = Article.includes(:author).order(created_at: :desc).page(params[:page]).per(10)
+  # def index
+  #   @articles = Article.includes(:author).order(created_at: :desc).page(params[:page]).per(10)
 
-    respond_to do |format|
-      format.html
-      format.json do
-        render json: { 
-          articles: @articles, 
-          meta: { total_pages: @articles.total_pages, total_count: @articles.total_count }
-        }
-      end
-    end
+  #   respond_to do |format|
+  #     format.html
+  #     format.json do
+  #       render json: { 
+  #         articles: @articles, 
+  #         meta: { total_pages: @articles.total_pages, total_count: @articles.total_count }
+  #       }
+  #     end
+  #   end
+  # end
+
+  def index
+    @articles_under_review = Article.under_review.order(created_at: :desc).page(params[:page]).per(20)
+    @published_articles = Article.plublished.order(created_at: :desc).page(params[:page]).per(20)
   end
 
   def new
@@ -79,6 +84,26 @@ class ArticlesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to articles_url, notice: "Article was successfully destroyed." }
       format.json { head :no_content }
+    end
+  end
+
+  def update_status
+    status = params[:status]
+    notice = case status
+             when 'draft'
+              'Article is now marked as draft!'
+             when 'under_review'
+              'Article has been submitted for review!'
+             when 'approved'
+              'Article has been approved for publishing!'
+             when 'published'
+              'Article has been published successfully'
+             end
+
+    if @article.update(status: status)
+      redirect_to request.referer || root_path, notice: notice
+    else
+      redirect_to request.referer, alert: "Failed to update article status"
     end
   end
 
