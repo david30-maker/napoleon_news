@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_21_003747) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_21_125717) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -93,6 +93,17 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_21_003747) do
     t.index ["ancestry"], name: "index_categories_on_ancestry"
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.text "body"
+    t.bigint "author_id", null: false
+    t.bigint "article_id", null: false
+    t.integer "comment_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_comments_on_article_id"
+    t.index ["author_id"], name: "index_comments_on_author_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
@@ -137,6 +148,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_21_003747) do
   add_foreign_key "article_tags", "tags"
   add_foreign_key "articles", "users", column: "approved_by_id"
   add_foreign_key "articles", "users", column: "author_id"
+  add_foreign_key "comments", "articles"
+  add_foreign_key "comments", "users", column: "author_id"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
 end

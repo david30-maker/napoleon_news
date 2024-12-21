@@ -64,4 +64,8 @@ class Article < ApplicationRecord
   def formatted_created_at
     "#{created_at.day.ordinalize} #{created_at.strftime('%b, %Y')}"
   end
+
+  def formatted_updated_at
+    "#{updated_at.day.ordinalize} #{updated_at.strftime('%b, %Y')}"
+  end
 end

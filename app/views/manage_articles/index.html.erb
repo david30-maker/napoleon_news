@@ -20,7 +20,7 @@
             <td><%= article.updated_at.strftime('%d %b %Y, %I:%M %p') %></td>
             <td>
               <div class="d-flex gap-2">
-                <%= link_to 'Review', "#", class: 'btn btn-sm btn-success' %>
+                <%= link_to 'Review', review_article_path(article), class: 'btn btn-sm btn-success' %>
               </div>
             </td>
           </tr>

@@ -11,6 +11,10 @@ Rails.application.routes.draw do
     member do
       patch :update_status
     end
+
+    collection do
+      resources :review_article, only: :show
+    end
   end
   
   root to: "home#index"
