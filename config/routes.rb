@@ -10,4 +10,10 @@ Rails.application.routes.draw do
   resources :articles, only: [:new, :edit, :index, :show, :create, :update, :destroy]
 
   root to: "home#index"
+
+  resources :users, only: [:index] do
+    member do
+      patch :update_role
+    end
+  end
 end

@@ -23,3 +23,7 @@ categories.each do |category_data|
   children_params = category_data[:children].map {|name| { name: name, parent_id: category.id } }
   Category.create(children_params)
 end
+
+# %[admin editor author writer].each do |role|
+#   create roles  
+# end
