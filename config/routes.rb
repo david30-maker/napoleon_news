@@ -12,7 +12,6 @@ Rails.application.routes.draw do
       patch :update_status
     end
   end
-  resources :authored_articles, only: [:index]
   
   root to: "home#index"
 
