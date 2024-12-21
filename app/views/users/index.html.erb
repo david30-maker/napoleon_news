@@ -6,7 +6,7 @@
         <div class="card p-3">
           <div class="d-flex justify-content-between align-items-center">
             <div>
-              <h5><%= link_to "#{user.first_name} #{user.last_name}", authored_articles_user_path(current_user, author_id: user.id), class: "text-decoration-none" %></h5>
+              <h5><%= link_to "#{user.first_name} #{user.last_name}", user_authored_articles_path(current_user, author_id: user.id), class: "text-decoration-none" %></h5>
               <p class="mb-0"><%= user.email %></p>
               <p class="text-muted">Current Role: <%= user.role.capitalize || 'None' %></p>
             </div>

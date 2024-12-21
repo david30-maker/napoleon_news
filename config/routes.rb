@@ -16,9 +16,9 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   resources :users, only: [:index] do
+    resources :authored_articles, only: :index
     member do
       patch :update_role
-      get :authored_articles
     end
   end
 end
