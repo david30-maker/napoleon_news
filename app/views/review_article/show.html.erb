@@ -1,8 +1,7 @@
 <div class="after-nav py-5 alert alert-info text-center d-flex justify-content-center align-items-center" role="alert" style="height: 60px;">
   <strong>Preview: </strong> This is a preview of the article.
 </div>
-
-<div class="container article-container after-nav py-5">
+<div class="container article-container py-5">
   <div class="row">
     <div class="col-md-8">
       <!-- Article Header -->
@@ -65,28 +64,61 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<div class="container my-4">
+  <h3>Editor Review</h3>
+  <!-- Comments Section -->
+  <div class="mb-4">
+    <h5> <%= @article.comments.blank? ? 'No' : '' %> Comments</h5>
+    <% @article.comments.each do |comment| %>
+      <div class="card mb-2">
+        <div class="card-body">
+          <p><strong><%= comment.author.first_name %> <%= comment.author.last_name %>:</strong></p>
+          <p><%= comment.body %></p>
+          <span class="badge bg-info text-dark"><%= comment.comment_type&.humanize %></span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <!-- Comment Form -->
+  <%= form_with(model: [@article, Comment.new], url: article_comments_path(@article), local: true) do |f| %>
+    <div class="mb-3">
+      <%= f.label :body, "Add a Comment", class: "form-label" %>
+      <%= f.text_area :body, class: "form-control", rows: 3 %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :comment_type, "Comment Type", class: "form-label" %>
+      <%= f.select :comment_type_type, [['Review Comment', 'review_comment']], {}, class: "form-select" %>
+    </div>
+    <%= f.submit "Add Comment", class: "btn btn-primary" %>
+  <% end %>
+</div>
+<div class="container">
+  <!-- Trigger Button -->
+  <%= button_tag "Approve and Publish", 
+               type: "button", 
+               class: "btn btn-success", 
+               data: { bs_toggle: "modal", bs_target: "#publishModal" } %>
+  <!-- Publish Modal -->
+  <div class="modal fade" id="publishModal" tabindex="-1" aria-labelledby="publishModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="publishModalLabel">Publish Article</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <%= form_with(url: article_path(@article), method: :patch, local: true) do |f| %>
+            <div class="mb-3">
+              <%= f.label :published_at, "Publish At", class: "form-label" %>
+              <%= f.datetime_local_field :published_at, class: "form-control" %>
+            </div>
+            <div class="d-flex gap-2">
+              <%= f.submit "Publish Now", class: "btn btn-primary" %>
+              <%= f.submit "Schedule", class: "btn btn-success" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

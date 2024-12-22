@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   end
 
   resources :articles, only: [:new, :edit, :index, :show, :create, :update, :destroy] do
+    resources :comments
     member do
       patch :update_status
     end
