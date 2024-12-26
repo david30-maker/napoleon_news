@@ -16,10 +16,10 @@ class UsersController < ApplicationController
     end
   end
 
-  def authored_articles
-    head :unauthorized unless current_user&.admin? || current_user == author
+  # def authored_articles
+  #   head :unauthorized unless current_user&.admin? || current_user.id == params[author
 
-    @author = User.find(params[:author_id])
-    @articles = @author.authored_articles.order(created_at: :desc).page(params[:page]).per(50)
-  end
+  #   @author = User.find(params[:author_id])
+  #   @articles = @author.authored_articles.order(created_at: :desc).page(params[:page]).per(50)
+  # end
 end

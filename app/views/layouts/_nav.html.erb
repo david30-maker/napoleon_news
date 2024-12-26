@@ -70,6 +70,7 @@
         </li>
       </ul>
       <div class="d-flex me-2">
+
         <% if user_signed_in? %>
           <div class="d-flex me-2">
             <%= link_to destroy_user_session_path, 
@@ -83,6 +84,29 @@
             <%= link_to new_user_session_path, 
             class: "btn btn-outline-secondary btn-sm me-2" do %>
               <i class="fas fa-sign-in-alt me-1"></i> Login
+            <% end %>
+          </div>
+        <% end %>
+
+        <% if current_user&.admin? %>
+          <div class="d-flex me-2">
+            <%= link_to user_admin_index_path(current_user), 
+            class: "btn btn-outline-secondary btn-sm me-2" do %>
+              <i class="fas fa-sign-out-alt me-1"></i> Admin Dashboard
+            <% end %>
+          </div>
+        <% elsif current_user&.editor? %>
+          <div class="d-flex me-2">
+            <%= link_to user_admin_index_path(current_user), 
+            class: "btn btn-outline-secondary btn-sm me-2" do %>
+              <i class="fas fa-sign-in-alt me-1"></i> Editor Dashboard
+            <% end %>
+          </div>
+        <% elsif current_user&.author? %>
+          <div class="d-flex me-2">
+            <%= link_to user_authored_articles_path(current_user, author_id: current_user.id), 
+            class: "btn btn-outline-secondary btn-sm me-2" do %>
+              <i class="fas fa-sign-in-alt me-1"></i> Author Dashboard
             <% end %>
           </div>
         <% end %>
