@@ -88,28 +88,15 @@
           </div>
         <% end %>
 
-        <% if current_user&.admin? %>
+        <% if current_user && !current_user.visitor? %>
           <div class="d-flex me-2">
             <%= link_to user_admin_index_path(current_user), 
             class: "btn btn-outline-secondary btn-sm me-2" do %>
-              <i class="fas fa-sign-out-alt me-1"></i> Admin Dashboard
-            <% end %>
-          </div>
-        <% elsif current_user&.editor? %>
-          <div class="d-flex me-2">
-            <%= link_to user_admin_index_path(current_user), 
-            class: "btn btn-outline-secondary btn-sm me-2" do %>
-              <i class="fas fa-sign-in-alt me-1"></i> Editor Dashboard
-            <% end %>
-          </div>
-        <% elsif current_user&.author? %>
-          <div class="d-flex me-2">
-            <%= link_to user_authored_articles_path(current_user, author_id: current_user.id), 
-            class: "btn btn-outline-secondary btn-sm me-2" do %>
-              <i class="fas fa-sign-in-alt me-1"></i> Author Dashboard
+              <i class="fas fa-sign-out-alt me-1"></i> <%= current_user.role.capitalize %> Dashboard
             <% end %>
           </div>
         <% end %>
+
         <a href="#" class="btn btn-outline-primary text-decoration-none text-primary btn-sm me-2"><i class="fab fa-facebook-f"></i></a>
         <a href="#" class="btn btn-outline-dark text-decoration-none text-dark btn-sm me-2"><i class="fab fa-x-twitter"></i></a>
         <a href="#" class="btn btn-outline-danger text-decoration-none text-danger btn-sm me-2"><i class="fab fa-instagram"></i></a>
