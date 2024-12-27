@@ -87,7 +87,7 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    @article.destroy
+    @article.discard
 
     respond_to do |format|
       format.html { redirect_to request.referer || root_path, notice: "Article was deleted successfully." }

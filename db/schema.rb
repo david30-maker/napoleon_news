@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_21_125717) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_27_181055) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -80,8 +80,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_21_125717) do
     t.bigint "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
     t.index ["approved_by_id"], name: "index_articles_on_approved_by_id"
     t.index ["author_id"], name: "index_articles_on_author_id"
+    t.index ["discarded_at"], name: "index_articles_on_discarded_at"
   end
 
   create_table "categories", force: :cascade do |t|

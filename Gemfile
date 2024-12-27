@@ -64,3 +64,4 @@ end
 gem "devise", "~> 4.8"
 
 gem "kaminari"
+gem 'discard', '~> 1.4'
