@@ -22,6 +22,7 @@ class Article < ApplicationRecord
 
   attr_accessor :tag_list
   after_save :assign_tags
+  after_commit :schedule_publish_job, if: :should_schedule_publish_job?
 
   def self.search(search)
     if search
@@ -68,5 +69,13 @@ class Article < ApplicationRecord
 
   def formatted_updated_at
     "#{updated_at.day.ordinalize} #{updated_at.strftime('%b, %Y')}"
+  end
+
+  def should_schedule_publish_job?
+    approved? && published_at.present? && published_at.future?
+  end
+
+  def schedule_publish_job
+    PublishArticleJob.set(wait_until: published_at).perform_later(self)
   end
 end

@@ -65,7 +65,15 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    if @article.update(article_params)
+    modified_params = if params['commit'] == 'Publish Now'
+      article_params.merge(published_at: Time.current, status: 'approved')
+    elsif params['commit'] == 'Schedule'
+      article_params.merge(status: 'approved')
+    end
+
+    debugger
+
+    if @article.update(modified_params || article_params)
       respond_to do |format|
         format.html { redirect_to @article, notice: "Article was successfully updated." }
         format.json { render json: @article, status: :ok }

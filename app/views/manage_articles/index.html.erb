@@ -28,8 +28,7 @@
       </tbody>
     </table>
   </div>
-
-  <%= paginate @articles_for_review, param_name: :under_review_page, anchor: 'under_review' %> 
+  <%= paginate @articles_for_review, param_name: :under_review_page, anchor: 'under_review' %>
 </div>
 <div class="container after-nav py-3">
   <h1 class="text-center mb-4">Published Articles</h1>
@@ -53,6 +52,10 @@
             <td><%= article.updated_at.strftime('%d %b %Y, %I:%M %p') %></td>
             <td>
               <div class="d-flex gap-2">
+                <%= button_to 'Move to Review', update_status_article_path(article, status: 'under_review'), 
+                method: :patch,
+                data: { confirm: 'Are you sure?', turbo: false },
+                class: 'btn btn-sm btn-warning' %>
                 <%= button_to 'Move to Draft', update_status_article_path(article, status: 'draft'), 
                 method: :patch,
                 data: { confirm: 'Are you sure?', turbo: false },
@@ -68,5 +71,5 @@
       </tbody>
     </table>
   </div>
-  <%= paginate @published_articles, param_name: :published_page, anchor: 'published' %> 
+  <%= paginate @published_articles, param_name: :published_page, anchor: 'published' %>
 </div>

@@ -107,7 +107,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <%= form_with(url: article_path(@article), method: :patch, local: true) do |f| %>
+          <%= form_with(model: @article, url: article_path(@article), method: :patch, local: true) do |f| %>
             <div class="mb-3">
               <%= f.label :published_at, "Publish At", class: "form-label" %>
               <%= f.datetime_local_field :published_at, class: "form-control" %>
@@ -122,3 +122,17 @@
     </div>
   </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const publishedAtInput = document.getElementById("publishedAtInput");
+    const scheduleButton = document.getElementById("scheduleButton");
+
+    if (publishedAtInput && scheduleButton) {
+      publishedAtInput.addEventListener("input", function () {
+        scheduleButton.disabled = !publishedAtInput.value;
+      });
+    }
+  });
+</script>
+
