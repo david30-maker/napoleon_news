@@ -6,7 +6,7 @@
     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
   </div>
   <div class="carousel-inner">
-    <% @articles.each_with_index do |article, idx| %>
+    <% @carousel_articles.each_with_index do |article, idx| %>
       <% next if article.image.nil? %>
       <div class="carousel-item <%= idx.zero? ? 'active' : '' %>">
         <img src="<%= url_for(article.image) %>" class="d-block w-100" height="500px" style="object-fit:cover">
