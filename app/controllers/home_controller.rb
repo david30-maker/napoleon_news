@@ -9,6 +9,7 @@ class HomeController < ApplicationController
     # Category.all.each { |category| @categories[category.name] = category_url(category) }
     @categories = Category.roots.where.not(name: 'Carousel')
     @carousel_articles = Category.find_by(name: 'Carousel').articles.order(created_at: :desc).limit(4)
+    
 
     respond_to do |format|
       format.html

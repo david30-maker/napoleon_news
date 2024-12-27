@@ -12,9 +12,9 @@
             Features
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Interviews</a></li>
-            <li><a class="dropdown-item" href="#">Stories</a></li>
-            <li><a class="dropdown-item" href="#">CSR</a></li>
+            <li><%= link_to 'Interviews', category_path(@all_categories.find_by(name: 'Interview')), class: 'dropdown-item' %></li>
+            <li><%= link_to 'Stories', category_path(@all_categories.find_by(name: 'Stories')), class: 'dropdown-item' %></li>
+            <li><%= link_to 'CSR', category_path(@all_categories.find_by(name: 'CSR')), class: 'dropdown-item' %></li>
           </ul>
         </li>
         <li class="nav-item dropdown mx-3" data-turbo-permanent>
@@ -22,9 +22,9 @@
             Leadership
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Transformational Leaders</a></li>
-            <li><a class="dropdown-item" href="#">Governance</a></li>
-            <li><a class="dropdown-item" href="#">Legal</a></li>
+            <li><%= link_to 'Transformational Leaders', category_path(@all_categories.find_by(name: 'Transformational')), class: 'dropdown-item' %></li>
+            <li><%= link_to 'Governance', category_path(@all_categories.find_by(name: 'Governance')), class: 'dropdown-item' %></li>
+            <li><%= link_to 'Legal', category_path(@all_categories.find_by(name: 'Legal')), class: 'dropdown-item' %></li>
           </ul>
         </li>
         <li class="nav-item dropdown mx-3" data-turbo-permanent>
@@ -32,10 +32,10 @@
             Business
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Finance</a></li>
-            <li><a class="dropdown-item" href="#">SMEs</a></li>
-            <li><a class="dropdown-item" href="#">Innovation</a></li>
-            <li><a class="dropdown-item" href="#">Listings</a></li>
+            <li><%= link_to 'Finance', category_path(@all_categories.find_by(name: 'Finance')), class: 'dropdown-item' %></li>
+            <li><%= link_to 'SMEs', category_path(@all_categories.find_by(name: 'SMEs')), class: 'dropdown-item' %></li>
+            <li><%= link_to 'Innovation', category_path(@all_categories.find_by(name: 'Innovation')), class: 'dropdown-item' %></li>
+            <li><%= link_to 'Listings', category_path(@all_categories.find_by(name: 'Listings')), class: 'dropdown-item' %></li>
           </ul>
         </li>
         <li class="nav-item dropdown mx-3" data-turbo-permanent>
@@ -43,11 +43,11 @@
             Society
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Men</a></li>
-            <li><a class="dropdown-item" href="#">Youth</a></li>
+            <li><%= link_to 'Men', category_path(@all_categories.find_by(name: 'Men')), class: 'dropdown-item' %></li>
+            <li><%= link_to 'Youth', category_path(@all_categories.find_by(name: 'Youth')), class: 'dropdown-item' %></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">MBGN Contest</a></li>
-            <li><a class="dropdown-item" href="#">Instant Quiz</a></li>
+            <li><%= link_to 'MBGN Contest', '#', class: 'dropdown-item' %></li>
+            <li><%= link_to 'Instant Quiz', '#', class: 'dropdown-item' %></li>
           </ul>
         </li>
         <li class="nav-item dropdown" data-turbo-permanent>
@@ -55,11 +55,11 @@
             News
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Trending</a></li>
-            <li><a class="dropdown-item" href="#">Entertainment</a></li>
-            <li><a class="dropdown-item" href="#">Tech</a></li>
-            <li><a class="dropdown-item" href="#">Sports</a></li>
-            <li><a class="dropdown-item" href="#">Culture</a></li>
+            <li><%= link_to 'Trending', category_path(@all_categories.find_by(name: 'Trending')), class: 'dropdown-item' %></li>
+            <li><%= link_to 'Entertainment', category_path(@all_categories.find_by(name: 'Entertainment')), class: 'dropdown-item' %></li>
+            <li><%= link_to 'Tech', category_path(@all_categories.find_by(name: 'Tech')), class: 'dropdown-item' %></li>
+            <li><%= link_to 'Sports', category_path(@all_categories.find_by(name: 'Sports')), class: 'dropdown-item' %></li>
+            <li><%= link_to 'Culture', category_path(@all_categories.find_by(name: 'Culture')), class: 'dropdown-item' %></li>
           </ul>
         </li>
         <li class="nav-item mx-3">

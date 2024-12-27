@@ -20,13 +20,13 @@ class CategoriesController < ApplicationController
     end
   end
 
-      def articles
-          @articles = @category.articles.includes(:author)
-          respond_to do |format|
-              format.html
-              format.json { render json: @articles }
-          end
-      end
+    def articles
+        @articles = @category.articles.includes(:author)
+        respond_to do |format|
+            format.html
+            format.json { render json: @articles }
+        end
+    end
 
   private
 
