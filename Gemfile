@@ -60,3 +60,5 @@ end
 gem "devise", "~> 4.8"
 
 gem "kaminari"
+
+gem "friendly_id", "~> 5.4"
