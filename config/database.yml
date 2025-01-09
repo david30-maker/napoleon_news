@@ -4,11 +4,14 @@
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem "sqlite3"
 #
-efault: &default
+default: &default
   adapter: postgresql
   encoding: unicode
   database: napoleon_app_development
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV['PG_USERNAME'] %>
+  password: <%= ENV['PG_PASSWORD'] %>
+
 
 development:
   <<: *default

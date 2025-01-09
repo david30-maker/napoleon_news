@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_17_070238) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_27_181055) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -72,16 +72,20 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_17_070238) do
 
   create_table "articles", force: :cascade do |t|
     t.string "title"
+    t.string "description", limit: 500
     t.datetime "published_at"
     t.datetime "approved_at"
-    t.integer "approved_by"
     t.integer "status"
-    t.bigint "user_id", null: false
+    t.bigint "approved_by_id"
+    t.bigint "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "Slug"
-    t.index ["Slug"], name: "index_articles_on_Slug", unique: true
-    t.index ["user_id"], name: "index_articles_on_user_id"
+    t.string "slug"
+    t.datetime "discarded_at"
+    t.index ["approved_by_id"], name: "index_articles_on_approved_by_id"
+    t.index ["author_id"], name: "index_articles_on_author_id"
+    t.index ["discarded_at"], name: "index_articles_on_discarded_at"
+    t.index ["slug"], name: "index_articles_on_slug", unique: true
   end
 
   create_table "categories", force: :cascade do |t|
@@ -89,6 +93,19 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_17_070238) do
     t.integer "created_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "ancestry"
+    t.index ["ancestry"], name: "index_categories_on_ancestry"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "body"
+    t.bigint "author_id", null: false
+    t.bigint "article_id", null: false
+    t.integer "comment_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_comments_on_article_id"
+    t.index ["author_id"], name: "index_comments_on_author_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -133,6 +150,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_17_070238) do
     t.string "last_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "role", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -143,7 +161,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_17_070238) do
   add_foreign_key "article_categories", "categories"
   add_foreign_key "article_tags", "articles"
   add_foreign_key "article_tags", "tags"
-  add_foreign_key "articles", "users"
+  add_foreign_key "articles", "users", column: "approved_by_id"
+  add_foreign_key "articles", "users", column: "author_id"
+  add_foreign_key "comments", "articles"
+  add_foreign_key "comments", "users", column: "author_id"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
 end

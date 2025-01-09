@@ -1,9 +1,11 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import "@hotwired/turbo-rails"
-import "controllers"
+import "@hotwired/turbo-rails";
+import "controllers";
+import "bootstrap";
+import "@popperjs/core";
 
-require("trix")
-require("@rails/actiontext")
+// require("trix");
+// require("@rails/actiontext");
 
-import "trix"
-import "@rails/actiontext"
+import "trix";
+import "@rails/actiontext";

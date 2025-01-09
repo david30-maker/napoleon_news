@@ -1,0 +1,57 @@
+.card-img-top {
+	aspect-ratio: 16 / 9;
+	/* or any ratio like 4/3 */
+	object-fit: cover;
+}
+
+.dropdown:hover .dropdown-menu {
+	display: block;
+	animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.carousel-item img {
+	filter: brightness(50%);
+	/* Darkens the image */
+}
+
+.carousel-caption h1,
+.carousel-caption p {
+	color: white;
+	/* White text for better readability */
+}
+
+.dropdown-item:hover {
+	background-color: #ff5733 !important; /* Custom hover color */
+	background-color: #000080 !important;
+	color: #ffffff !important;
+	text-decoration: none; /* Remove underline */
+}
+
+.nav-item a:hover {
+	background-color: #ff5733 !important; /* Custom hover color */
+	background-color: #000080 !important;
+	color: #ffffff !important;
+	text-decoration: none; /* Remove underline */
+}
+
+.article-container {
+	margin-top: 10rem;
+}
+
+.navbar, .footer {
+	background-color:LightGray;
+}
+
+// .category-section .class-title

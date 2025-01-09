@@ -1,0 +1,39 @@
+<div class="container after-nav py-3">
+  <h1 class="mb-4">Users</h1>
+  <div class="row">
+    <% @users.each do |user| %>
+      <div class="col-12 mb-3">
+        <div class="card p-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h5><%= link_to "#{user.first_name} #{user.last_name}", user_authored_articles_path(current_user, author_id: user.id), class: "text-decoration-none" %></h5>
+              <p class="mb-0"><%= user.email %></p>
+              <p class="text-muted">Current Role: <%= user.role.capitalize || 'None' %></p>
+            </div>
+            <div class='d-flex'>
+              <% if user.admin? %>
+                <%= button_to 'Remove Admin Access', update_role_user_path(user, role: 'visitor'), method: :patch, class: 'btn btn-danger me-2' %>
+              <% else %>
+                <%= button_to 'Make Admin', update_role_user_path(user, role: 'admin'), method: :patch, class: 'btn btn-success me-2' %>
+              <% end %>
+              <% if user.editor? %>
+                <%= button_to 'Remove Editor Access', update_role_user_path(user, role: 'visitor'), method: :patch, class: 'btn btn-danger me-2' %>
+              <% else %>
+                <%= button_to 'Make Editor', update_role_user_path(user, role: 'editor'), method: :patch, class: 'btn btn-success me-2' %>
+              <% end %>
+              <% if user.author? %>
+                <%= button_to 'Remove Author Access', update_role_user_path(user, role: 'visitor'), method: :patch, class: 'btn btn-danger' %>
+              <% else %>
+                <%= button_to 'Make Author', update_role_user_path(user, role: 'author'), method: :patch, class: 'btn btn-success' %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<%= paginate @users, 
+    previous_label: '<i class="fas fa-chevron-left"></i> Previous', 
+    next_label: 'Next <i class="fas fa-chevron-right"></i>', 
+    class: 'pagination pagination-lg justify-content-center' %>

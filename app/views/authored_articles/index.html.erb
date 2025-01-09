@@ -1,0 +1,55 @@
+<div class="container after-nav py-3">
+  <h2 class="mb-4"><%= current_user == @author ? 'My' : possessivize(@author.first_name) %> Articles</h2>
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Title</th>
+        <th>Status</th>
+        <th>Published Date</th>
+        <th>Created On</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @articles.each_with_index do |article, index| %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= article.title %></td>
+          <td>
+            <span class="badge 
+              <%= article.status == 'draft' ? 'bg-warning' : 
+                  article.status == 'published' ? 'bg-success' : 
+                  'bg-secondary' %>">
+              <%= article.status.humanize %>
+            </span>
+          </td>
+          <td><%= article.published_at.present? ? article.published_at.strftime('%B %d, %Y') : 'Not Published' %></td>
+          <td><%= article.created_at.strftime('%B %d, %Y') %></td>
+          <td>
+            <div class="d-flex gap-2">
+              <% if article.draft? %>
+                <%= button_to 'Submit for Review', update_status_article_path(article, status: 'under_review'), 
+                              method: :patch,
+                              data: { confirm: 'Are you sure?' },
+                              class: 'btn btn-sm btn-success' %>
+              <% end %>
+              <% if article.under_review? || article.published? %>
+                <%= button_to 'Move to Draft', update_status_article_path(article, status: 'draft'), 
+                              method: :patch,
+                              data: { confirm: 'Are you sure?', turbo: false },
+                              class: 'btn btn-sm btn-warning' %>
+              <% end %>
+              <%= button_to 'Delete', article_path(article), 
+                            method: :delete, 
+                            data: { confirm: 'Are you sure?' }, 
+                            class: 'btn btn-sm btn-danger' %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= paginate @articles %> 
+</div>

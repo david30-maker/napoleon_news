@@ -1,2 +1,47 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<div id="myCarousel" class="carousel slide after-nav" data-bs-ride="carousel" data-bs-interval="3000">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+  </div>
+  <div class="carousel-inner">
+    <% @carousel_articles.each_with_index do |article, idx| %>
+      <% next if article.image.nil? %>
+      <div class="carousel-item <%= idx.zero? ? 'active' : '' %>">
+        <img src="<%= url_for(article.image) %>" class="d-block w-100" height="500px" style="object-fit:cover">
+        <div class="container">
+          <div class="carousel-caption text-start w-50">
+            <a href=<%= article_path(article) %> ><h1><%= article.title %></h1></a>
+            <p><%= article.description %></p>
+            <p class="fw-bold">By <%= article.author.first_name+ ' ' +article.author.last_name%> | <span><i class="fa fa-clock" aria-hidden="true"></i></span> <%= article.formatted_created_at %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+  <%# <div class="container mt-4">
+    <div class="d-flex justify-content-center">
+      <div class="rect-box me-2" data-bs-target="#myCarousel" data-bs-slide-to="0" style="width: 100px; height: 50px; background-color: #007bff; color: white; text-align: center; line-height: 50px; cursor: pointer;">
+        Slide 1
+      </div>
+      <div class="rect-box me-2" data-bs-target="#myCarousel" data-bs-slide-to="1" style="width: 100px; height: 50px; background-color: #007bff; color: white; text-align: center; line-height: 50px; cursor: pointer;">
+        Slide 2
+      </div>
+      <div class="rect-box" data-bs-target="#myCarousel" data-bs-slide-to="2" style="width: 100px; height: 50px; background-color: #007bff; color: white; text-align: center; line-height: 50px; cursor: pointer;">
+        Slide 3
+      </div>
+    </div>
+  </div> %>
+</div>
+<% @categories.each_with_index do |category, idx| %>
+  <%= render 'home_category', category: category, idx: idx %> 
+<% end %>
