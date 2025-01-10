@@ -113,16 +113,7 @@ GEM
       activerecord (>= 4.2, < 9.0)
     drb (2.2.1)
     erubi (1.13.0)
-    ffi (1.17.0-aarch64-linux-gnu)
-    ffi (1.17.0-aarch64-linux-musl)
-    ffi (1.17.0-arm-linux-gnu)
-    ffi (1.17.0-arm-linux-musl)
-    ffi (1.17.0-arm64-darwin)
-    ffi (1.17.0-x86-linux-gnu)
-    ffi (1.17.0-x86-linux-musl)
-    ffi (1.17.0-x86_64-darwin)
     ffi (1.17.0-x86_64-linux-gnu)
-    ffi (1.17.0-x86_64-linux-musl)
     font-awesome-sass (6.5.2)
       sassc (~> 2.0)
     friendly_id (5.5.1)
@@ -170,6 +161,8 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
+    meta-tags (2.22.1)
+      actionpack (>= 6.0.0, < 8.1)
     mini_magick (4.13.2)
     mini_mime (1.1.5)
     minitest (5.25.2)
@@ -347,6 +340,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kaminari
+  meta-tags
   pg (~> 1.2)
   puma (>= 5.0)
   rails (~> 7.2.2)

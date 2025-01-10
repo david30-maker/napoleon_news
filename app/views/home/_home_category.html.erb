@@ -1,4 +1,4 @@
-<% articles = category.articles.order(created_at: :desc).limit(7) %>
+<% articles = category.articles.where(status: 'approved').includes(:author).order(created_at: :desc).limit(7) %>
 <% unless articles.blank? %>
   <section class="container w-90 category-section mt-5">
     <h3 ><a class="text-dark icon-link icon-link-hover <%= idx.odd? ? "d-flex justify-content-end" : '' %>" href="<%= category_path(category)%>"> <%= category.name %> <i class="fa fa-arrow-right ps-2 py-0 bi" aria-hidden="true"></i></a></h3>

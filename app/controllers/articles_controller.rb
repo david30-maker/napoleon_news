@@ -42,6 +42,24 @@ class ArticlesController < ApplicationController
     @article_body = @article_image_url.present? ? @article.body_without_images : @article.body
     @tag_classes = %w[bg-primary bg-secondary bg-success]
 
+    set_meta_tags title: @article.title,
+                  description: @article.description,
+                  keywords: @article.tags.map(&:name).join(', '),
+                  og: {
+                    title: @article.title,
+                    description: @article.description,
+                    image: @article_image_url,
+                    url: article_url(@article),
+                    type: 'article'
+                  },
+                  twitter: {
+                    card: 'summary_large_image',
+                    site: '@YourTwitterHandle',
+                    title: @article.title,
+                    description: @article.description,
+                    image: @article_image_url
+                  }
+
     respond_to do |format|
       format.html
       format.json { render json: @article }
@@ -74,7 +92,7 @@ class ArticlesController < ApplicationController
     modified_params = if params[:status] == 'approved' && params[:published_at].nil?
       article_params.merge(published_at: Time.current)
     end
-    
+
     if @article.update(modified_params || article_params)
       respond_to do |format|
         format.html { redirect_to @article, notice: "Article was successfully updated." }

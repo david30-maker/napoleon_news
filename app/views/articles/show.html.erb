@@ -13,7 +13,9 @@
       <!-- Article Image -->
       <div class="row">
         <div class="col-12">
-          <%= image_tag @article_image_url, alt: "Article Image", class: "img-fluid rounded mb-4" %>
+          <% if @article_image_url.present? %>
+            <%= image_tag @article_image_url, alt: "Article Image", class: "img-fluid rounded mb-4" %>
+          <% end %>
         </div>
       </div>
       <!-- Tags -->
@@ -42,7 +44,7 @@
         <div class="d-flex align-items-center">
           <i class="fas fa-share-alt fa-2x me-3"></i>
           <!-- Social Media Icons -->
-          <div>
+          <%# <div>
             <a href="https://www.facebook.com/sharer/sharer.php?u=#{CGI.escape(article_url(@article))}" class="text-decoration-none text-primary me-3">
               <i class="fab fa-facebook fa-lg"></i>
             </a>
@@ -55,34 +57,23 @@
             <a href="https://www.linkedin.com/sharing/share-offsite/?url=#{CGI.escape(article_url(@article))}" class="text-decoration-none text-secondary">
               <i class="fab fa-linkedin fa-lg"></i>
             </a>
+          </div> %>
+          <div>
+            <!-- Facebook Share -->
+            <a href="https://www.facebook.com/sharer/sharer.php?u=<%= CGI.escape(article_url(@article)) %>" class="text-decoration-none text-primary me-3" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-facebook fa-lg"></i>
+            </a>
+            <!-- Twitter Share -->
+            <a href="https://twitter.com/intent/tweet?url=<%= CGI.escape(article_url(@article)) %>&text=<%= CGI.escape(@article.title) %>" class="text-decoration-none text-dark me-3" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-twitter fa-lg"></i>
+            </a>
+            <!-- LinkedIn Share -->
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url=<%= CGI.escape(article_url(@article)) %>" class="text-decoration-none text-secondary" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-linkedin fa-lg"></i>
+            </a>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
