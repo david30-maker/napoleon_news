@@ -86,17 +86,24 @@
       <%= f.text_area :body, class: "form-control", rows: 3 %>
     </div>
     <div class="mb-3">
-      <%= f.label :comment_type, "Comment Type", class: "form-label" %>
-      <%= f.select :comment_type_type, [['Review Comment', 'review_comment']], {}, class: "form-select" %>
+      <%#= f.label :comment_type, "Comment Type", class: "form-label" %>
+      <%#= f.select :comment_type_type, [['Review Comment', 'review_comment']], {}, class: "form-select" %>
+      <%= f.hidden_field :comment_type, value: 'review_comment' %>
     </div>
-    <%= f.submit "Add Comment", class: "btn btn-primary" %>
+    <%= f.submit "Add Review Comment", class: "btn btn-primary" %>
   <% end %>
 </div>
 <div class="container">
-  <!-- Trigger Button -->
-  <%= button_tag "Approve and Publish", 
+  <!-- Approve now button -->
+  <%= button_to "Approve and Publish Now", 
+                 article_path(@article), 
+                 method: :patch, 
+                 params: { article: { published_at: nil, status: 'approved' } },
+                 class: "btn btn-success" %>
+  <!-- Schedule Trigger Button -->
+  <%= button_tag "Approve and Schedule for Later", 
                type: "button", 
-               class: "btn btn-success", 
+               class: "btn btn-warning mt-4", 
                data: { bs_toggle: "modal", bs_target: "#publishModal" } %>
   <!-- Publish Modal -->
   <div class="modal fade" id="publishModal" tabindex="-1" aria-labelledby="publishModalLabel" aria-hidden="true">
@@ -112,8 +119,8 @@
               <%= f.label :published_at, "Publish At", class: "form-label" %>
               <%= f.datetime_local_field :published_at, class: "form-control" %>
             </div>
+            <%= f.hidden_field :status, value: 'approved' %>
             <div class="d-flex gap-2">
-              <%= f.submit "Publish Now", class: "btn btn-primary" %>
               <%= f.submit "Schedule", class: "btn btn-success" %>
             </div>
           <% end %>
@@ -122,17 +129,27 @@
     </div>
   </div>
 </div>
-
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const publishedAtInput = document.getElementById("publishedAtInput");
-    const scheduleButton = document.getElementById("scheduleButton");
-
-    if (publishedAtInput && scheduleButton) {
-      publishedAtInput.addEventListener("input", function () {
-        scheduleButton.disabled = !publishedAtInput.value;
-      });
-    }
+  document.addEventListener('shown.bs.modal', function (event) {
+  // Focus the first input field in the modal
+  const modal = event.target;
+  const input = modal.querySelector('input[type="datetime-local"]');
+  if (input) input.focus();
   });
-</script>
 
+  //  document.addEventListener('DOMContentLoaded', function () {
+  //   const publishedAtInput = document.getElementById('publishedAtInput');
+  //   const scheduleButton = document.getElementById('scheduleButton');
+
+  //   if (publishedAtInput && scheduleButton) {
+  //     // Monitor changes in the datetime-local field
+  //     publishedAtInput.addEventListener('input', function () {
+  //       if (publishedAtInput.value) {
+  //         scheduleButton.disabled = false; // Enable button if a value is present
+  //       } else {
+  //         scheduleButton.disabled = true; // Disable button if the field is empty
+  //       }
+  //     });
+  //   }
+  // });
+</script>
