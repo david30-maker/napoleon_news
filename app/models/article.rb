@@ -25,6 +25,8 @@ class Article < ApplicationRecord
   scope :approved, -> { where(status: "approved") }
   scope :under_review, -> { where(status: "under_review") }
   scope :draft, -> { where(status: "draft") }
+  scope :for_categories, ->(category_ids) { joins(:categories).where(categories: { id: category_ids }).distinct }
+
 
   attr_accessor :tag_list
   after_save :assign_tags

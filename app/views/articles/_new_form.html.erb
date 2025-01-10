@@ -27,15 +27,15 @@
 
   <div class="mb-3">
     <%= f.label :status, "Status", class: "form-label" %>
-    <%# <%= f.select :status, Article.statuses.keys.map { |status| [status.humanize, status] }, {}, class: "form-select" %> %>
+    <%# <%= f.select :status, Article.statuses.keys.map { |status| [status.humanize, status] }, {}, class: "form-select" %>
     <%= f.select :status, [['Draft', 'draft'], ['Under Review', 'under_review']], {}, class: "form-select" %>
   </div>
 
   <div class="mb-3">
     <%= f.label :category_ids, "Categories", class: "form-label" %>
     <div>
-      <% Category.roots.all.each do |category| %>
-        <div class="form-check">
+      <% Category.all.each do |category| %>
+        <div class="form-check form-check-inline">
           <%= check_box_tag "article[category_ids][]", category.id, article.category_ids.include?(category.id), class: "form-check-input", id: "category_#{category.id}" %>
           <%= label_tag "category_#{category.id}", category.name, class: "form-check-label" %>
         </div>
