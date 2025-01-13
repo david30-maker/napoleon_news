@@ -32,4 +32,7 @@ test:
 # ensure the database is located in a persisted volume.
 production:
   <<: *default
+  adapter: postgresql
+  database: napoleon_app_production
+
   # database: path/to/persistent/storage/production.sqlite3

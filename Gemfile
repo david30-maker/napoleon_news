@@ -68,3 +68,5 @@ gem "kaminari"
 gem "friendly_id", "~> 5.4"
 gem 'discard', '~> 1.4'
 gem "meta-tags"
+
+gem "rails_12factor", group: :production

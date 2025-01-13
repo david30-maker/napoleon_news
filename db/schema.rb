@@ -72,20 +72,18 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_27_181055) do
 
   create_table "articles", force: :cascade do |t|
     t.string "title"
-    t.string "description", limit: 500
     t.datetime "published_at"
     t.datetime "approved_at"
+    t.integer "approved_by"
     t.integer "status"
-    t.bigint "approved_by_id"
-    t.bigint "author_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "slug"
+    t.string "Slug"
     t.datetime "discarded_at"
-    t.index ["approved_by_id"], name: "index_articles_on_approved_by_id"
-    t.index ["author_id"], name: "index_articles_on_author_id"
+    t.index ["Slug"], name: "index_articles_on_Slug", unique: true
     t.index ["discarded_at"], name: "index_articles_on_discarded_at"
-    t.index ["slug"], name: "index_articles_on_slug", unique: true
+    t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -161,8 +159,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_27_181055) do
   add_foreign_key "article_categories", "categories"
   add_foreign_key "article_tags", "articles"
   add_foreign_key "article_tags", "tags"
-  add_foreign_key "articles", "users", column: "approved_by_id"
-  add_foreign_key "articles", "users", column: "author_id"
+  add_foreign_key "articles", "users"
   add_foreign_key "comments", "articles"
   add_foreign_key "comments", "users", column: "author_id"
   add_foreign_key "user_roles", "roles"
