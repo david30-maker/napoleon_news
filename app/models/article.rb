@@ -44,9 +44,9 @@ class Article < ApplicationRecord
   #   Tag.find_by!(name: name).articles
   # end
 
-  # def tag_list
-  #   tags.map(&:name).join(", ")
-  # end
+  def tag_list
+    tags.map(&:name).join(", ")
+  end
 
   # def tag_list=(names)
   #   self.tags = names.split(",").map do |name|

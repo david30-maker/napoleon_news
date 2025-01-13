@@ -1,7 +1,7 @@
-<div class="after-nav py-5 alert alert-info text-center d-flex justify-content-center align-items-center" role="alert" style="height: 60px;">
-  <strong>Preview: </strong> This is a preview of the article.
+<div class="after-nav alert alert-info text-center d-flex justify-content-center align-items-center" role="alert" style="height: 60px;">
+  <strong class='fs-1'> Review Mode </strong>
 </div>
-<div class="container article-container py-5">
+<div class="container article-container">
   <div class="row">
     <div class="col-md-8">
       <!-- Article Header -->
@@ -16,7 +16,9 @@
       <!-- Article Image -->
       <div class="row">
         <div class="col-12">
+          <% if @article_image_url.present? %>
           <%= image_tag @article_image_url, alt: "Article Image", class: "img-fluid rounded mb-4" %>
+          <% end %>
         </div>
       </div>
       <!-- Tags -->
@@ -38,6 +40,20 @@
       </div>
     </div>
     <div class="col-md-4">
+      <!-- Comments Section -->
+  <div class="mb-4">
+    <h5>Editor Review Comments</h5>  
+    <h6> <%= @article.comments.blank? ? 'No' : '' %> Comments</h6>
+    <% @article.comments.each do |comment| %>
+      <div class="card mb-2">
+        <div class="card-body">
+          <p><strong><%= comment.author.first_name %> <%= comment.author.last_name %>:</strong></p>
+          <p><%= comment.body %></p>
+          <span class="badge bg-info text-dark"><%= comment.comment_type&.humanize %></span>
+        </div>
+      </div>
+    <% end %>
+  </div>
     </div>
     <div class="row">
       <div class="container mt-5">
@@ -66,19 +82,6 @@
 </div>
 <div class="container my-4">
   <h3>Editor Review</h3>
-  <!-- Comments Section -->
-  <div class="mb-4">
-    <h5> <%= @article.comments.blank? ? 'No' : '' %> Comments</h5>
-    <% @article.comments.each do |comment| %>
-      <div class="card mb-2">
-        <div class="card-body">
-          <p><strong><%= comment.author.first_name %> <%= comment.author.last_name %>:</strong></p>
-          <p><%= comment.body %></p>
-          <span class="badge bg-info text-dark"><%= comment.comment_type&.humanize %></span>
-        </div>
-      </div>
-    <% end %>
-  </div>
   <!-- Comment Form -->
   <%= form_with(model: [@article, Comment.new], url: article_comments_path(@article), local: true) do |f| %>
     <div class="mb-3">
@@ -98,7 +101,7 @@
   <%= button_to "Approve and Publish Now", 
                  article_path(@article), 
                  method: :patch, 
-                 params: { article: { published_at: nil, status: 'approved' } },
+                 params: { article: { published_at: nil, status: 'published' } },
                  class: "btn btn-success" %>
   <!-- Schedule Trigger Button -->
   <%= button_tag "Approve and Schedule for Later", 

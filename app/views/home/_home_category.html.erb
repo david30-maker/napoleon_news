@@ -23,11 +23,7 @@
                     <!-- Image Section -->
                     <div class="col-auto">
                       <a href="<%= article_path(article) %>">
-                        <img src="<%= url_for(article.image) %>" 
-             class="img-fluid" 
-             alt="..." 
-             style="width: 100px; object-fit: cover;">
-                      </a>
+                        <img src="<%= url_for(article.image) %>" class="img-fluid" alt="..." style="width: 100px; object-fit: cover;"></a>
                     </div>
                     <!-- Text Section -->
                     <div class="col">
@@ -49,7 +45,7 @@
       <div class="col-md-4 border-left left-col">
         <% if articles[1..2].present? %>
           <% articles[1..2].each do |article| %>
-            <div class="card border-0">
+            <div class="card border-0 d-none d-md-block">
               <a href="<%= article_path(article) %>"><img src="<%= url_for(article.image) %>" class="card-img-top" alt="..."></a>
               <div class="card-body py-1 px-0">
                 <a href="<%= article_path(article)%>" class="text-dark link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">

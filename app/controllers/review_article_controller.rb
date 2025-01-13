@@ -2,7 +2,7 @@ class ReviewArticleController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    head :unauthorized unless current_user&.admin? || current_user&.editor
+    head :unauthorized unless current_user&.admin? || current_user&.editor?
 
     @article = Article.friendly.find(params[:slug])
     article_image = @article.image
