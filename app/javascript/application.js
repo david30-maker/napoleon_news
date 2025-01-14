@@ -13,3 +13,11 @@ import "@popperjs/core";
 
 import "trix";
 import "@rails/actiontext";
+
+
+document.addEventListener('turbo:load', () => {
+    const carouselElement = document.querySelector('.after-nav-2');
+    if (carouselElement) {
+      carouselElement.style.marginTop = '0';
+    }
+  });
