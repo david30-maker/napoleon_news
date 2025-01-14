@@ -1,15 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-tertiary px-0 px-lg-4 fixed-top border-bottom border-primary">
   <div class="container-fluid">
-    <!-- Brand -->
-    <a class="navbar-brand" href="<%= root_path %>">
-      <img src="https://napoleonnews.com/wp-content/uploads/2024/09/napoleon_logo-768x316.png" width="120" height="50" class="d-inline-block align-text-top">
-    </a>
-
     <!-- Toggler -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler order-first" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
+    <!-- Brand -->
+    <a class="navbar-brand" href="<%= root_path %>">
+      <img src="/icon.png" width="120" height="50" class="d-inline-block align-text-top">
+    </a>
     <!-- Navigation Links -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
@@ -24,7 +22,6 @@
             <li><%= link_to 'CSR', category_path(@all_categories.find_by(name: 'CSR')), class: 'dropdown-item' %></li>
           </ul>
         </li>
-
         <!-- Leadership Dropdown -->
         <li class="nav-item dropdown mx-0 mx-lg-1" data-turbo-permanent>
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -36,7 +33,6 @@
             <li><%= link_to 'Legal', category_path(@all_categories.find_by(name: 'Legal')), class: 'dropdown-item' %></li>
           </ul>
         </li>
-
         <!-- Business Dropdown -->
         <li class="nav-item dropdown mx-0 mx-lg-1" data-turbo-permanent>
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -49,7 +45,6 @@
             <li><%= link_to 'Listings', category_path(@all_categories.find_by(name: 'Listings')), class: 'dropdown-item' %></li>
           </ul>
         </li>
-
         <!-- Society Dropdown -->
         <li class="nav-item dropdown mx-0 mx-lg-1" data-turbo-permanent>
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -63,7 +58,6 @@
             <li><%= link_to 'Instant Quiz', '#', class: 'dropdown-item' %></li>
           </ul>
         </li>
-
         <!-- News Dropdown -->
         <li class="nav-item dropdown mx-0" data-turbo-permanent>
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -77,7 +71,6 @@
             <li><%= link_to 'Culture', category_path(@all_categories.find_by(name: 'Culture')), class: 'dropdown-item' %></li>
           </ul>
         </li>
-
         <!-- Static Links -->
         <li class="nav-item mx-0 mx-lg-1">
           <a class="nav-link active" aria-current="page" href="#">Events</a>
@@ -86,31 +79,29 @@
           <a class="nav-link active" aria-current="page" href="#">Contact Us</a>
         </li>
       </ul>
-
-      <!-- User Controls -->
-      <div class="d-flex flex-column flex-lg-row me-lg-2">
-        <% if current_user && !current_user.visitor? %>
-          <div class="d-flex me-2 mb-sm-3 mb-md-0">
-            <%= link_to user_admin_index_path(current_user), class: "btn btn-outline-secondary btn-sm me-2" do %>
-              <i class="fas fa-tachometer me-1"></i> <%= current_user.role.capitalize %> Dashboard
-            <% end %>
-          </div>
-        <% end %>
-
-        <% if user_signed_in? %>
-          <div class="d-flex me-2">
-            <%= link_to destroy_user_session_path, data: { "turbo-method": :delete }, class: "btn btn-outline-secondary btn-sm me-2" do %>
-              <i class="fas fa-sign-out-alt me-1"></i> Logout, <%= current_user.first_name %>
-            <% end %>
-          </div>
-        <% else %>
-          <div class="d-flex me-2">
-            <%= link_to new_user_session_path, class: "btn btn-outline-secondary btn-sm me-2" do %>
-              <i class="fas fa-sign-in-alt me-1"></i> Login
-            <% end %>
-          </div>
-        <% end %>
-      </div>
+    </div>
+    <!-- User Controls - Move this outside of the collapsible navbar content -->
+    <div class="d-flex flex-column flex-lg-row me-lg-2">
+      <% if current_user && !current_user.visitor? %>
+        <div class="d-flex me-2 mb-sm-3 mb-md-0">
+          <%= link_to user_admin_index_path(current_user), class: "btn btn-outline-secondary btn-sm me-2" do %>
+            <i class="fas fa-tachometer me-1"></i> <%= current_user.role.capitalize %> Dashboard
+          <% end %>
+        </div>
+      <% end %>
+      <% if user_signed_in? %>
+        <div class="d-flex me-2">
+          <%= link_to destroy_user_session_path, data: { "turbo-method": :delete }, class: "btn btn-outline-secondary btn-sm me-2" do %>
+            <i class="fas fa-sign-out-alt me-1"></i> Logout, <%= current_user.first_name %>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="d-flex me-2">
+          <%= link_to new_user_session_path, class: "btn btn-outline-secondary btn-sm me-2" do %>
+            <i class="fas fa-sign-in-alt me-1"></i> Login
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </div>
 </nav>
