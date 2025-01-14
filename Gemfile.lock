@@ -96,6 +96,8 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    childprocess (5.1.0)
+      logger (~> 1.5)
     concurrent-ruby (1.3.4)
     connection_pool (2.4.1)
     crass (1.0.6)
@@ -150,6 +152,11 @@ GEM
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
     language_server-protocol (3.17.0.3)
+    launchy (3.0.1)
+      addressable (~> 2.8)
+      childprocess (~> 5.0)
+    letter_opener (1.10.0)
+      launchy (>= 2.2, < 4)
     logger (1.6.1)
     loofah (2.23.1)
       crass (~> 1.0.2)
@@ -345,6 +352,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kaminari
+  letter_opener
   meta-tags
   pg (~> 1.2)
   puma (>= 5.0)
