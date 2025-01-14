@@ -33,6 +33,8 @@ test:
 production:
   <<: *default
   adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   database: napoleon_app_production
 
   # database: path/to/persistent/storage/production.sqlite3

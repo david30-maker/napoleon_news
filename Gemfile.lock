@@ -350,6 +350,7 @@ DEPENDENCIES
   puma (>= 5.0)
   rails (~> 7.2.2)
   rails_12factor
+  rake (~> 13.0)
   rubocop-rails-omakase
   sassc-rails
   selenium-webdriver
