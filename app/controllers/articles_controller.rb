@@ -39,7 +39,8 @@ class ArticlesController < ApplicationController
   def show
     article_image = @article.image
     @article_image_url = article_image.present? ? url_for(article_image) : nil
-    @article_body = @article_image_url.present? ? @article.body_without_images : @article.body
+    # @article_body = @article_image_url.present? ? @article.body_without_images : @article.body
+    @article_body = @article.body
     @tag_classes = %w[bg-primary bg-secondary bg-success]
 
     set_meta_tags title: @article.title,

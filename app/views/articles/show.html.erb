@@ -6,17 +6,20 @@
         <div class="col-12">
           <h2><%= @article.title %></h2>
           <p class="text-muted">
-            By <span class="fw-bold"><%= @article.author.first_name+ ' ' +@article.author.last_name  %></span> • Published on <span><%= @article.formatted_created_at  %></span>
+            By <span class="fw-bold"><%= @article.author.first_name+ ' ' +@article.author.last_name  %></span> • <span><%= @article.formatted_published_at  %></span>
           </p>
         </div>
       </div>
       <!-- Article Image -->
-      <div class="row">
-        <div class="col-12">
-          <% if @article_image_url.present? %>
-            <%= image_tag @article_image_url, alt: "Article Image", class: "img-fluid rounded mb-4" %>
-          <% end %>
-        </div>
+      <%# <div class="row">
+        <div class="col-12"> %>
+          <%# if @article_image_url.present? %>
+            <%#= image_tag @article_image_url, alt: "Article Image", class: "img-fluid rounded mb-4" %>
+          <%# end %>
+        <%# </div>
+      </div> %>
+      <div class="row border-bottom mb-2">
+        <p class="fst-italic fw-semibold"><%= @article.description %></p>
       </div>
       <!-- Tags -->
       <div class="row">
@@ -25,9 +28,6 @@
             <span class="badge <%= @tag_classes[idx] %>" ><%= tag.name.capitalize  %></span>
           <% end %>
         </div>
-      </div>
-      <div class="row border-bottom">
-        <p class="fst-italic fw-semibold"><%= @article.description %></p>
       </div>
       <!-- Article Body -->
       <div class="row">
@@ -44,20 +44,6 @@
         <div class="d-flex align-items-center">
           <i class="fas fa-share-alt fa-2x me-3"></i>
           <!-- Social Media Icons -->
-          <%# <div>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=#{CGI.escape(article_url(@article))}" class="text-decoration-none text-primary me-3">
-              <i class="fab fa-facebook fa-lg"></i>
-            </a>
-            <a href="https://twitter.com/intent/tweet?url=#{CGI.escape(article_url(@article))}&text=#{CGI.escape(@article.title)}" class="text-decoration-none text-dark me-3">
-              <i class="fab fa-x-twitter fa-lg"></i>
-            </a>
-            <a href="#" class="text-decoration-none text-danger me-3">
-              <i class="fab fa-instagram fa-lg"></i>
-            </a>
-            <a href="https://www.linkedin.com/sharing/share-offsite/?url=#{CGI.escape(article_url(@article))}" class="text-decoration-none text-secondary">
-              <i class="fab fa-linkedin fa-lg"></i>
-            </a>
-          </div> %>
           <div>
             <!-- Facebook Share -->
             <a href="https://www.facebook.com/sharer/sharer.php?u=<%= CGI.escape(article_url(@article)) %>" class="text-decoration-none text-primary me-3" target="_blank" rel="noopener noreferrer">
