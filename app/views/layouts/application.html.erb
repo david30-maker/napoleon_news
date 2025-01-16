@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <%# <title><%= content_for(:title) || "Napoleon News" %></title> %>
   <%= display_meta_tags site: 'Napoleon News' %>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -16,6 +15,7 @@
   <%= javascript_importmap_tags %>
 </head>
 <body class="d-flex flex-column min-vh-100 pt-5" data-controller="flash-notifications">
+  <div class="container flex-grow-1">
   <%= render 'layouts/nav' %>
   <% flash.each do |type, message| %>
     <div class="alert alert-<%= type == 'alert' ? 'danger' : type == 'notice' ? 'success' : type %> alert-dismissible fade show" role="alert">
@@ -24,6 +24,7 @@
     </div>
   <% end %>
   <%= yield %>
+  </div>
   <%= render 'layouts/footer' %>
 </body>
 </html>
