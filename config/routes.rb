@@ -24,7 +24,13 @@ Rails.application.routes.draw do
     resources :authored_articles, only: :index
     resources :admin, only: :index do
       collection do
-        resources :manage_articles, only: :index
+        resources :manage_articles, only: :index do
+          collection do
+            get :draft
+            get :under_review
+            get :published
+          end
+        end
       end
     end
     member do
