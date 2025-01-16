@@ -79,8 +79,8 @@
           <a class="nav-link active" aria-current="page" href="#">Contact Us</a>
         </li>
       </ul>
-    </div>
-    <!-- User Controls - Move this outside of the collapsible navbar content -->
+
+       <!-- User Controls - Move this outside of the collapsible navbar content -->
     <div class="d-flex flex-column flex-lg-row me-lg-2">
       <% if current_user && !current_user.visitor? %>
         <div class="d-flex me-2 mb-sm-3 mb-md-0">
@@ -102,6 +102,7 @@
           <% end %>
         </div>
       <% end %>
+    </div>
     </div>
   </div>
 </nav>
