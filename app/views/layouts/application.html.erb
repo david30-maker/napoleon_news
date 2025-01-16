@@ -24,5 +24,10 @@
     <% end %>
     <%= yield %>
     <%= render 'layouts/footer' %>
+
+    document.addEventListener("DOMcontentLoaded", function(){
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      document.cookie = `timezone=${timezone}; path=/`;
+    });
   </body>
 </html>
