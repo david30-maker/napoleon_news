@@ -2,7 +2,7 @@ require 'nokogiri'
 
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy, :update_status]
-  before_action :authenticate_user!, only: [:create, :update, :destroy]
+  before_action :authenticate_user!, only: [:create, :update, :destroy, :new, :edit]
 
   # def index
   #   @articles = Article.includes(:author).order(created_at: :desc).page(params[:page]).per(10)
@@ -24,6 +24,8 @@ class ArticlesController < ApplicationController
   end
 
   def new
+    head :unauthorized unless current_user&.author || current_user&.admin? || current_user&.editor?
+
     @article = Article.new
     respond_to do |format|
       format.html { render :new, status: :ok }
@@ -31,6 +33,8 @@ class ArticlesController < ApplicationController
   end
 
   def edit
+    head :unauthorized unless @article.author == current_user || current_user&.admin? || current_user&.editor?
+
     respond_to do |format|
       format.html { render :edit, status: :ok }
     end
@@ -68,6 +72,8 @@ class ArticlesController < ApplicationController
   end
 
   def create
+    head :unauthorized unless @article.author == current_user || current_user&.admin? || current_user&.editor?
+
     @article = current_user.authored_articles.build(article_params)
 
     if @article.save
@@ -84,11 +90,7 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    # modified_params = if params['commit'] == 'Publish Now'
-    #   article_params.merge(published_at: Time.current, status: 'approved')
-    # elsif params['commit'] == 'Schedule'
-    #   article_params.merge(status: 'approved')
-    # end
+    head :unauthorized unless @article.author == current_user || current_user&.admin? || current_user&.editor?
 
     modified_params = if params[:status] == 'approved' && params[:published_at].nil?
       article_params.merge(published_at: Time.current)
@@ -108,6 +110,8 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
+    head :unauthorized unless @article.author == current_user || current_user&.admin? || current_user&.editor?
+    
     @article.discard
 
     respond_to do |format|
