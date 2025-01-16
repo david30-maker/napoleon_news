@@ -2,6 +2,8 @@ class Article < ApplicationRecord
   extend FriendlyId
   include Discard::Model
   
+  # attr_accessor :tag_list
+
   friendly_id :title, use: :slugged
   default_scope -> { kept }
 
@@ -27,8 +29,6 @@ class Article < ApplicationRecord
   scope :draft, -> { where(status: "draft") }
   scope :for_categories, ->(category_ids) { joins(:categories).where(categories: { id: category_ids }).distinct }
 
-
-  attr_accessor :tag_list
   after_save :assign_tags
   after_commit :schedule_publish_job, if: :should_schedule_publish_job?
 
@@ -48,11 +48,11 @@ class Article < ApplicationRecord
     tags.map(&:name).join(", ")
   end
 
-  # def tag_list=(names)
-  #   self.tags = names.split(",").map do |name|
-  #     Tag.where(name: name.strip).first_or_create!
-  #   end
-  # end
+  def tag_list=(names)
+    self.tags = names.split(",").map do |name|
+      Tag.where(name: name.strip).first_or_create!
+    end
+  end
 
   def assign_tags
     return unless tag_list
@@ -77,6 +77,10 @@ class Article < ApplicationRecord
 
   def formatted_updated_at
     "#{updated_at.day.ordinalize} #{updated_at.strftime('%b, %Y')}"
+  end
+
+  def formatted_published_at
+    "#{(published_at || updated_at)&.day&.ordinalize} #{(published_at || updated_at)&.strftime('%b, %Y')}"
   end
 
   def should_schedule_publish_job?

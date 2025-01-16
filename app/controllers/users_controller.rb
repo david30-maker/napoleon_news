@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   def index
     head :unauthorized unless current_user&.admin?
 
-    @users = User.order(:first_name, :last_name).page(params[:page]).per(10)
+    @users = User.order(:first_name, :last_name).page(params[:page]).per(20)
   end
 
   def update_role

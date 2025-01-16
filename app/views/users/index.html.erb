@@ -1,30 +1,30 @@
 <div class="container after-nav py-3">
-  <h1 class="mb-4">Users</h1>
+  <h1 class="mb-4 text-center">Users</h1>
   <div class="row">
     <% @users.each do |user| %>
       <div class="col-12 mb-3">
         <div class="card p-2"> <!-- Reduced padding from p-3 to p-2 -->
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
+          <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-center align-items-md-start"> <!-- Center content on mobile, left-aligned on larger screens -->
+            <div class="text-center mb-2 mb-md-0"> <!-- Center text on mobile -->
               <h5 class="fs-6"><%= link_to "#{user.first_name} #{user.last_name}", user_authored_articles_path(current_user, author_id: user.id), class: "text-decoration-none" %></h5> <!-- Reduced font size -->
               <p class="mb-0"><%= user.email %></p>
               <p class="text-muted fs-7">Current Role: <%= user.role.capitalize || 'None' %></p> <!-- Reduced font size -->
             </div>
-            <div class='d-flex'>
+            <div class="d-flex flex-column flex-md-row justify-content-center text-center gap-2 mt-2 mt-md-0"> <!-- Center buttons on mobile -->
               <% if user.admin? %>
-                <%= button_to 'Remove Admin Access', update_role_user_path(user, role: 'visitor'), method: :patch, class: 'btn btn-danger btn-sm me-2' %> <!-- Reduced button size -->
+                <%= button_to 'Remove Admin Access', update_role_user_path(user, role: 'visitor'), method: :patch, class: 'btn btn-danger btn-sm' %>
               <% else %>
-                <%= button_to 'Make Admin', update_role_user_path(user, role: 'admin'), method: :patch, class: 'btn btn-success btn-sm me-2' %> <!-- Reduced button size -->
+                <%= button_to 'Make Admin', update_role_user_path(user, role: 'admin'), method: :patch, class: 'btn btn-success btn-sm' %>
               <% end %>
               <% if user.editor? %>
-                <%= button_to 'Remove Editor Access', update_role_user_path(user, role: 'visitor'), method: :patch, class: 'btn btn-danger btn-sm me-2' %> <!-- Reduced button size -->
+                <%= button_to 'Remove Editor Access', update_role_user_path(user, role: 'visitor'), method: :patch, class: 'btn btn-danger btn-sm' %>
               <% else %>
-                <%= button_to 'Make Editor', update_role_user_path(user, role: 'editor'), method: :patch, class: 'btn btn-success btn-sm me-2' %> <!-- Reduced button size -->
+                <%= button_to 'Make Editor', update_role_user_path(user, role: 'editor'), method: :patch, class: 'btn btn-success btn-sm' %>
               <% end %>
               <% if user.author? %>
-                <%= button_to 'Remove Author Access', update_role_user_path(user, role: 'visitor'), method: :patch, class: 'btn btn-danger btn-sm' %> <!-- Reduced button size -->
+                <%= button_to 'Remove Author Access', update_role_user_path(user, role: 'visitor'), method: :patch, class: 'btn btn-danger btn-sm' %>
               <% else %>
-                <%= button_to 'Make Author', update_role_user_path(user, role: 'author'), method: :patch, class: 'btn btn-success btn-sm' %> <!-- Reduced button size -->
+                <%= button_to 'Make Author', update_role_user_path(user, role: 'author'), method: :patch, class: 'btn btn-success btn-sm' %>
               <% end %>
             </div>
           </div>

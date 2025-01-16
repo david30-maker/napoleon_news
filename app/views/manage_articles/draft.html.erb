@@ -1,0 +1,26 @@
+<div class="container after-nav py-5 mt-5">
+  <h1 class="text-center mb-4">Draft Articles</h1>
+  <div class="row g-3">
+    <% @draft_articles.each_with_index do |article, index| %>
+      <div class="col-12 col-md-6 col-lg-4 d-flex">
+        <div class="card shadow-sm w-100 d-flex flex-column">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title"><%= index + 1 %>. <%= article.title %></h5>
+            <p class="card-text mb-4">
+              <strong>Author:</strong> <%= article.author.first_name %> <%= article.author.last_name %><br>
+              <strong>Last Updated At:</strong> <%= article.updated_at.strftime('%d %b %Y, %I:%M %p') %>
+            </p>
+            <div class="mt-auto">
+              <div class="d-flex gap-2">
+                <%= button_to 'Move to Review', update_status_article_path(article, status: 'under_review'), method: :patch, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-warning' %>
+                <%= link_to 'Edit', edit_article_path(article), class: 'btn btn-sm btn-warning' %>
+                <%= button_to 'Delete', article_path(article), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <%= paginate @draft_articles, param_name: :draft_page, anchor: 'draft' %>
+</div>
