@@ -18,7 +18,7 @@
     <div class="container-fluid p-0 flex-grow-1">
       <%= render 'layouts/nav' %>
       <% flash.each do |type, message| %>
-        <div class="alert alert-<%= type == 'alert' ? 'danger' : type == 'notice' ? 'success' : type %> alert-dismissible fade show" role="alert">
+        <div class="alert alert-<%= type == 'alert' ? 'danger' : type == 'notice' ? 'success' : type %> alert-dismissible fade show after-nav" role="alert">
           <%= message %>
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
