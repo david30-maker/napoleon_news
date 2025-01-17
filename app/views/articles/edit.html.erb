@@ -5,3 +5,18 @@
 
 <!-- <%= link_to 'Back', articles_path, class: "btn btn-secondary" %> -->
 </div>
+
+<script>
+    document.addEventListener("trix-attachment-add", function(event) {
+      const attachment = event.attachment;
+
+      if (attachment.file) {
+        const file = attachment.file;
+
+        if (file.size > 0.5 * 1024 * 1024) {
+          alert("The image is too large. Maximum size is 500KB.");
+          attachment.remove()
+        }
+      }
+    });
+  </script>
