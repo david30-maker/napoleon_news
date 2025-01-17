@@ -10,3 +10,7 @@ Rails.start();
 
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 
+document.addEventListener("DOMcontentLoaded", function(){
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  document.cookie = `timezone=${timezone}; path=/`;
+});

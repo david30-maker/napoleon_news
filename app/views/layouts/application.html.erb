@@ -1,62 +1,30 @@
 <!DOCTYPE html>
 <html>
   <head>
-<<<<<<< HEAD
-    <%# <title><%= content_for(:title) || "Napoleon News" %></title> %>
     <%= display_meta_tags site: 'Napoleon News' %>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= yield :head %>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="apple-touch-icon" href="/icon.png">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body class="d-flex flex-column min-vh-100">
-    <%= render 'layouts/nav' %>
-    <% if flash[:notice] %>
-      <div class="alert alert-success"><%= flash[:notice] %></div>
-    <% elsif flash[:alert] %>
-      <div class="alert alert-danger"><%= flash[:alert] %></div>
-    <% end %>
-    <%= yield %>
-    <%= render 'layouts/footer' %>
-
-    document.addEventListener("DOMcontentLoaded", function(){
-      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      document.cookie = `timezone=${timezone}; path=/`;
-    });
-  </body>
-=======
-  <%= display_meta_tags site: 'Napoleon News' %>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
-  <%= yield :head %>
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/manifest.json">
-  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-  <%= javascript_importmap_tags %>
-</head>
-<body class="d-flex flex-column min-vh-100 pt-4" data-controller="flash-notifications">
-  <div class="container-fluid p-0 flex-grow-1">
-  <%= render 'layouts/nav' %>
-  <% flash.each do |type, message| %>
-    <div class="alert alert-<%= type == 'alert' ? 'danger' : type == 'notice' ? 'success' : type %> alert-dismissible fade show" role="alert">
-      <%= message %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  <body class="d-flex flex-column min-vh-100 pt-4" data-controller="flash-notifications">
+    <div class="container-fluid p-0 flex-grow-1">
+      <%= render 'layouts/nav' %>
+      <% flash.each do |type, message| %>
+        <div class="alert alert-<%= type == 'alert' ? 'danger' : type == 'notice' ? 'success' : type %> alert-dismissible fade show" role="alert">
+          <%= message %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% end %>
+      <%= yield %>
     </div>
-  <% end %>
-  <%= yield %>
-  </div>
-  <%= render 'layouts/footer' %>
-</body>
->>>>>>> ad136227cea0af40cc135791b96a78647ebb119b
+    <%= render 'layouts/footer' %>
+  </body>
 </html>
