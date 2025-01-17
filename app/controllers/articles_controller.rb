@@ -24,7 +24,7 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    head :unauthorized unless current_user&.author || current_user&.admin? || current_user&.editor?
+    head :unauthorized unless current_user&.author? || current_user&.admin? || current_user&.editor?
 
     @article = Article.new
     respond_to do |format|
@@ -72,7 +72,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    head :unauthorized unless @article.author == current_user || current_user&.admin? || current_user&.editor?
+    # head :unauthorized unless @article.author == current_user || current_user&.admin? || current_user&.editor?
 
     @article = current_user.authored_articles.build(article_params)
 
