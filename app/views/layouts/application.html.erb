@@ -1,6 +1,37 @@
 <!DOCTYPE html>
 <html>
   <head>
+<<<<<<< HEAD
+    <%# <title><%= content_for(:title) || "Napoleon News" %></title> %>
+    <%= display_meta_tags site: 'Napoleon News' %>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= yield :head %>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <%= render 'layouts/nav' %>
+    <% if flash[:notice] %>
+      <div class="alert alert-success"><%= flash[:notice] %></div>
+    <% elsif flash[:alert] %>
+      <div class="alert alert-danger"><%= flash[:alert] %></div>
+    <% end %>
+    <%= yield %>
+    <%= render 'layouts/footer' %>
+
+    document.addEventListener("DOMcontentLoaded", function(){
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      document.cookie = `timezone=${timezone}; path=/`;
+    });
+  </body>
+=======
   <%= display_meta_tags site: 'Napoleon News' %>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -27,4 +58,5 @@
   </div>
   <%= render 'layouts/footer' %>
 </body>
+>>>>>>> ad136227cea0af40cc135791b96a78647ebb119b
 </html>
