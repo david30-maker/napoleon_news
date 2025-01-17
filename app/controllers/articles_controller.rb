@@ -92,11 +92,19 @@ class ArticlesController < ApplicationController
   def update
     head :unauthorized unless @article.author == current_user || current_user&.admin? || current_user&.editor?
 
-    modified_params = if params[:status] == 'approved' && params[:published_at].nil?
-      article_params.merge(published_at: Time.current)
-    end
+    modified_params = if article_params[:status] == 'published' && article_params[:published_at].blank?
+                        article_params.merge(published_at: Time.current)
+                      elsif article_params[:published_at].present?
+                        published_at_local = article_params[:published_at]
+                        time_zone = article_params[:time_zone]
+                        time_zone_obj = ActiveSupport::TimeZone[time_zone]
+                        published_at_with_zone = time_zone_obj.parse(published_at_local)
+                        article_params.merge(published_at: published_at_with_zone)
+                      end
 
-    if @article.update(modified_params || article_params)
+    modified_params = modified_params&.except(:time_zone) || article_params.except(:time_zone)
+
+    if @article.update(modified_params)
       respond_to do |format|
         format.html { redirect_to @article, notice: "Article was successfully updated." }
         format.json { render json: @article, status: :ok }
@@ -152,6 +160,6 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:title, :body, :description, :status, :published_at, :approved_at, :tag_list, category_ids: [])
+    params.require(:article).permit(:title, :body, :description, :status, :published_at, :approved_at, :tag_list, :time_zone, category_ids: [])
   end
 end

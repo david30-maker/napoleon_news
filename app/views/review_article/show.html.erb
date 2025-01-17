@@ -15,14 +15,6 @@
           </p>
         </div>
       </div>
-      <!-- Article Image -->
-      <%# <div class="row">
-        <div class="col-12"> %>
-      <%# if @article_image_url.present? %>
-      <%#= image_tag @article_image_url, alt: "Article Image", class: "img-fluid rounded mb-4" %>
-      <%# end %>
-      <%# </div>
-      </div> %>
       <!-- Tags -->
       <div class="row">
         <div class="col-6 mb-3">
@@ -113,12 +105,18 @@
         </div>
         <div class="modal-body">
           <%= form_with(model: @article, url: article_path(@article), method: :patch, local: true) do |f| %>
-            <div class="mb-3">
-              <%= f.label :published_at, "Publish At", class: "form-label" %>
-              <%= f.datetime_local_field :published_at, class: "form-control" %>
+            <div class="d-flex gap-3">
+              <div class="flex-grow-1">
+                <%= f.label :published_at, "Publish At", class: "form-label" %>
+                <%= f.datetime_local_field :published_at, class: "form-control" %>
+              </div>
+              <div class="flex-grow-1">
+                <%= f.label :time_zone, "Time Zone", class: "form-label" %>
+                <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.all, { default: "West Central Africa" }, class: "form-control" %>
+              </div>
             </div>
             <%= f.hidden_field :status, value: 'approved' %>
-            <div class="d-flex gap-2">
+            <div class="d-flex gap-2 mt-2">
               <%= f.submit "Schedule", class: "btn btn-success" %>
             </div>
           <% end %>
@@ -127,27 +125,22 @@
     </div>
   </div>
 </div>
+
 <script>
   document.addEventListener('shown.bs.modal', function (event) {
-  // Focus the first input field in the modal
-  const modal = event.target;
-  const input = modal.querySelector('input[type="datetime-local"]');
-  if (input) input.focus();
+    const modal = event.target;
+    const input = modal.querySelector('input[type="datetime-local"]');
+    const submitButton = modal.querySelector('input[type="submit"]');
+
+    if (input && submitButton) {
+      submitButton.disabled = true;
+      const now = new Date();
+  
+      input.addEventListener('input', function () {
+        const enteredDate = new Date(input.value);
+        const isFutureDate = enteredDate > now;
+        submitButton.disabled = !isFutureDate;
+      });
+    }
   });
-
-  //  document.addEventListener('DOMContentLoaded', function () {
-  //   const publishedAtInput = document.getElementById('publishedAtInput');
-  //   const scheduleButton = document.getElementById('scheduleButton');
-
-  //   if (publishedAtInput && scheduleButton) {
-  //     // Monitor changes in the datetime-local field
-  //     publishedAtInput.addEventListener('input', function () {
-  //       if (publishedAtInput.value) {
-  //         scheduleButton.disabled = false; // Enable button if a value is present
-  //       } else {
-  //         scheduleButton.disabled = true; // Disable button if the field is empty
-  //       }
-  //     });
-  //   }
-  // });
 </script>
