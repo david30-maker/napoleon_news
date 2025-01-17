@@ -8,7 +8,8 @@
             <h5 class="card-title"><%= index + 1 %>. <%= article.title %></h5>
             <p class="card-text mb-4">
               <strong>Author:</strong> <%= article.author.first_name %> <%= article.author.last_name %><br>
-              <strong>Last Updated At:</strong> <%= article.updated_at.strftime('%d %b %Y, %I:%M %p') %>
+              <strong>Last Updated:</strong> <span class="timestamp" data-utc="<%= article.updated_at&.iso8601 %>"></span><br>
+              <strong>Published At:</strong> <span class="timestamp" data-utc="<%= article.published_at&.iso8601 %>"></span>
             </p>
             <div class="mt-auto">
               <div class="d-flex gap-2">

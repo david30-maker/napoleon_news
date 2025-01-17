@@ -6,7 +6,7 @@
         <div class="col-12">
           <h2><%= @article.title %></h2>
           <p class="text-muted">
-            By <span class="fw-bold"><%= @article.author.first_name+ ' ' +@article.author.last_name  %></span> • <span><%= @article.formatted_published_at  %></span>
+            By <span class="fw-bold"><%= @article.author.first_name+ ' ' +@article.author.last_name  %></span> • <span class="timestamp" data-utc="<%= @article.published_at&.iso8601 %>"></span>
           </p>
         </div>
       </div>

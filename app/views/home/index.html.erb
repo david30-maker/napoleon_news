@@ -14,7 +14,7 @@
           <div class="carousel-caption text-start w-50">
             <a href=<%= article_path(article) %> ><h1><%= article.title %></h1></a>
             <p><%= article.description %></p>
-            <p class="fw-bold">By <%= article.author.first_name+ ' ' +article.author.last_name%> | <span><i class="fa fa-clock" aria-hidden="true"></i></span> <%= article.formatted_created_at %></p>
+            <p class="fw-bold">By <%= article.author.first_name+ ' ' +article.author.last_name%> | <span><i class="fa fa-clock" aria-hidden="true"></i></span> <span class="timestamp" data-utc="<%= article.published_at&.iso8601 %>"></span></p>
           </div>
         </div>
       </div>
