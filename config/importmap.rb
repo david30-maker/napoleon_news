@@ -13,3 +13,5 @@ pin "@popperjs/core", to: "https://ga.jspm.io/npm:@popperjs/core@2.11.8/lib/inde
 pin "trix"
 pin "@rails/actiontext", to: "actiontext.esm.js"
 pin "@rails/ujs", to: "https://ga.jspm.io/npm:@rails/ujs@7.0.5/lib/assets/compiled/rails-ujs.js"
+pin "timestamp_formatter", to: "timestamp_formatter.js"
+
