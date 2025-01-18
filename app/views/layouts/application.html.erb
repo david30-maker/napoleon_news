@@ -16,7 +16,7 @@
 
   </head>
   <body class="d-flex flex-column min-vh-100 pt-4" data-controller="flash-notifications">
-    <div class="container-fluid p-0 flex-grow-1">
+    <div class="container-fluid p-0 flex-grow-1 mb-5">
       <%= render 'layouts/nav' %>
       <% flash.each do |type, message| %>
         <div class="alert alert-<%= type == 'alert' ? 'danger' : type == 'notice' ? 'success' : type %> alert-dismissible fade show after-nav" role="alert">
