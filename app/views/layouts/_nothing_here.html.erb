@@ -1,10 +1,9 @@
-<div class="container d-flex align-items-center justify-content-center vh-100 bg-light">
+<div class="container after-nav mt-5 py-5 d-flex align-items-center justify-content-center bg-white">
   <div class="text-center">
-    <h1 class="display-4 text-primary"><%= "Oops! Nothing Here Yet" %></h1>
+    <h1 class="display-4 text-dark"><%= "Oops! Nothing Here Yet" %></h1>
     <p class="lead text-muted"><%= "There is no content here right now. Please check back later." %></p>
-    <%= image_tag("https://via.placeholder.com/300x200", alt: "Nothing Here", class: "img-fluid my-4") %>
     <div>
-      <%= link_to "Go Home", root_path, class: "btn btn-primary btn-lg" %>
+      <%= link_to "Go Home", root_path, class: "btn btn-success btn-lg" %>
       <%= link_to "Go Back", "javascript:history.back()", class: "btn btn-outline-secondary btn-lg" %>
     </div>
   </div>
