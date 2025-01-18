@@ -88,7 +88,7 @@
   <%= button_to "Approve and Publish Now", 
                  article_path(@article), 
                  method: :patch, 
-                 params: { article: { published_at: nil, status: 'published' } },
+                 params: { article: { published_at: 'now', status: 'published' } },
                  class: "btn btn-success" %>
   <!-- Schedule Trigger Button -->
   <%= button_tag "Approve and Schedule for Later", 

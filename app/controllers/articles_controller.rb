@@ -92,7 +92,7 @@ class ArticlesController < ApplicationController
   def update
     head :unauthorized unless @article.author == current_user || current_user&.admin? || current_user&.editor?
 
-    modified_params = if article_params[:status] == 'published' && article_params[:published_at].blank?
+    modified_params = if article_params[:status] == 'published' && article_params[:published_at] == 'now'
                         article_params.merge(published_at: Time.current)
                       elsif article_params[:published_at].present?
                         published_at_local = article_params[:published_at]
