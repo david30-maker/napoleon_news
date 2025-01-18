@@ -29,7 +29,7 @@ class Article < ApplicationRecord
   scope :draft, -> { where(status: "draft") }
   scope :for_categories, ->(category_ids) { joins(:categories).where(categories: { id: category_ids }).distinct }
 
-  after_save :assign_tags
+  after_save :assign_tags, :store_image_captions
   after_commit :schedule_publish_job, if: :should_schedule_publish_job?
 
   def self.search(search)
@@ -89,5 +89,17 @@ class Article < ApplicationRecord
 
   def schedule_publish_job
     PublishArticleJob.set(wait_until: published_at).perform_later(self)
+  end
+
+  private
+
+  def store_image_captions
+    body.embeds.each do |embed|
+      if embed.blob&.image?
+        caption = Nokogiri::HTML.fragment(body.to_s).at_css("figcaption")&.text&.strip
+        embed.blob.metadata[:caption] = caption || 'Embedded Image'
+        embed.blob.save
+      end
+    end
   end
 end
